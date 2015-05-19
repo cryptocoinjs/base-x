@@ -1,7 +1,7 @@
-# bs*
+# base-x
 
-[![TRAVIS](https://secure.travis-ci.org/dcousens/bs\*.png)](http://travis-ci.org/dcousens/bs\*)
-[![NPM](http://img.shields.io/npm/v/bs\*.svg)](https://www.npmjs.org/package/bs\*)
+[![TRAVIS](https://secure.travis-ci.org/dcousens/base-x.png)](http://travis-ci.org/dcousens/base-x)
+[![NPM](http://img.shields.io/npm/v/base-x.svg)](https://www.npmjs.org/package/base-x)
 
 [![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
 
@@ -9,7 +9,7 @@
 ## Example
 
 ``` javascript
-var bs58 = require('bs*')('123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz')
+var bs58 = require('base-x')('123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz')
 
 var decoded = bs58.decode('5Kd3NBUAdUnhyzenEwVLy9pBKxSwXvE9FMPyR4UKZvpe6E3AgLr')
 

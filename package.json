@@ -1,5 +1,5 @@
 {
-  "name": "bs*",
+  "name": "base-x",
   "version": "1.0.0",
   "description": "Base * encoding / decoding",
   "main": "index.js",
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/dcousens/bs*.git"
+    "url": "https://github.com/dcousens/base-x.git"
   },
   "bugs": {
-    "url": "https://github.com/dcousens/bs*/issues"
+    "url": "https://github.com/dcousens/base-x/issues"
   },
-  "homepage": "https://github.com/dcousens/bs*",
+  "homepage": "https://github.com/dcousens/base-x",
   "keywords": [
-    "bs*",
+    "base-x",
     "base58",
     "base62",
     "base64",
