@@ -8,7 +8,7 @@ var base58 = require('../')(BASE58)
 var fixtures = require('./fixtures.json')
 
 describe('bs*', function () {
-  describe('encode base 58', function () {
+  describe('encode base58', function () {
     fixtures.valid.forEach(function (f) {
       it('can encode ' + f.hex, function () {
         var actual = base58.encode(new Buffer(f.hex, 'hex'))
