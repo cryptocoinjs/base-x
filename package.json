@@ -1,0 +1,37 @@
+{
+  "name": "bs*",
+  "version": "1.0.0",
+  "description": "Base * encoding / decoding",
+  "main": "index.js",
+  "scripts": {
+    "standard": "standard",
+    "test": "npm run-script unit",
+    "unit": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dcousens/bs*.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dcousens/bs*/issues"
+  },
+  "homepage": "https://github.com/dcousens/bs*",
+  "keywords": [
+    "bs*",
+    "base58",
+    "base62",
+    "base64",
+    "crypto",
+    "crytography",
+    "decode",
+    "decoding",
+    "encode",
+    "encoding"
+  ],
+  "author": "Daniel Cousens",
+  "license": "MIT",
+  "devDependencies": {
+    "mocha": "*",
+    "standard": "*"
+  }
+}
