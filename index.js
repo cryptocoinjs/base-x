@@ -1,16 +1,16 @@
 // base* encoding
 // Credits to https://github.com/cryptocoinjs/bs58
 
-module.exports = function base(ALPHABET) {
+module.exports = function base (ALPHABET) {
   var ALPHABET_MAP = {}
   var BASE = ALPHABET.length
 
   // pre-compute lookup table
-  for(var i = 0; i < ALPHABET.length; i++) {
+  for (var i = 0; i < ALPHABET.length; i++) {
     ALPHABET_MAP[ALPHABET.charAt(i)] = i
   }
 
-  function encode(buffer) {
+  function encode (buffer) {
     if (buffer.length === 0) return ''
 
     var i, j, digits = [0]
@@ -37,10 +37,12 @@ module.exports = function base(ALPHABET) {
     // deal with leading zeros
     for (i = 0; buffer[i] === 0 && i < buffer.length - 1; i++) digits.push(0)
 
-    return digits.reverse().map(function(digit) { return ALPHABET[digit] }).join('')
+    return digits.reverse().map(function (digit) {
+      return ALPHABET[digit]
+    }).join('')
   }
 
-  function decode(string) {
+  function decode (string) {
     if (string.length === 0) return []
 
     var i, j, bytes = [0]
