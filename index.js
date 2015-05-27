@@ -13,7 +13,9 @@ module.exports = function base (ALPHABET) {
   function encode (buffer) {
     if (buffer.length === 0) return ''
 
-    var i, j, digits = [0]
+    var i, j
+    var digits = [0]
+    
     for (i = 0; i < buffer.length; i++) {
       for (j = 0; j < digits.length; j++) digits[j] <<= 8
 
@@ -35,7 +37,9 @@ module.exports = function base (ALPHABET) {
     }
 
     // deal with leading zeros
-    for (i = 0; buffer[i] === 0 && i < buffer.length - 1; i++) digits.push(0)
+    for (i = 0; buffer[i] === 0 && i < buffer.length - 1; i++) {
+      digits.push(0)
+    }
 
     return digits.reverse().map(function (digit) {
       return ALPHABET[digit]
@@ -45,7 +49,9 @@ module.exports = function base (ALPHABET) {
   function decode (string) {
     if (string.length === 0) return []
 
-    var i, j, bytes = [0]
+    var i, j
+    var bytes = [0]
+    
     for (i = 0; i < string.length; i++) {
       var c = string[i]
       if (!(c in ALPHABET_MAP)) throw new Error('Non-base' + BASE + ' character')
@@ -69,7 +75,9 @@ module.exports = function base (ALPHABET) {
     }
 
     // deal with leading zeros
-    for (i = 0; string[i] === '1' && i < string.length - 1; i++) bytes.push(0)
+    for (i = 0; string[i] === '1' && i < string.length - 1; i++) {
+      bytes.push(0)
+    }
 
     return bytes.reverse()
   }
