@@ -10,8 +10,11 @@ Fast base encoding / decoding of any given alphabet.
 
 ## Example
 
+Base58
+
 ``` javascript
-var bs58 = require('base-x')('123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz')
+var BASE58 = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'
+var bs58 = require('base-x')(BASE58)
 
 var decoded = bs58.decode('5Kd3NBUAdUnhyzenEwVLy9pBKxSwXvE9FMPyR4UKZvpe6E3AgLr')
 
@@ -20,6 +23,16 @@ console.log(decoded)
 
 console.log(bs58.encode(decoded))
 // => 5Kd3NBUAdUnhyzenEwVLy9pBKxSwXvE9FMPyR4UKZvpe6E3AgLr
+```
+
+
+Base62
+
+``` javascript
+var BASE62 = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+var bs62 = require('base-x')(BASE62)
+
+// ...
 ```
 
 
