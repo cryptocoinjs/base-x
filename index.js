@@ -15,7 +15,7 @@ module.exports = function base (ALPHABET) {
 
     var i, j
     var digits = [0]
-    
+
     for (i = 0; i < buffer.length; i++) {
       for (j = 0; j < digits.length; j++) digits[j] <<= 8
 
@@ -51,7 +51,7 @@ module.exports = function base (ALPHABET) {
 
     var i, j
     var bytes = [0]
-    
+
     for (i = 0; i < string.length; i++) {
       var c = string[i]
       if (!(c in ALPHABET_MAP)) throw new Error('Non-base' + BASE + ' character')
