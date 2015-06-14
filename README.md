@@ -5,6 +5,8 @@
 
 [![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
 
+Fast base encoding / decoding of any given alphabet.
+
 
 ## Example
 
