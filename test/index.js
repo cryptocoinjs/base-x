@@ -2,14 +2,14 @@
 
 var assert = require('assert')
 var fixtures = require('./fixtures.json')
+var makeCodec = require('../')
 
 var alphabets = fixtures.alphabets
 var bases = {}
 
 for (var alphabetName in alphabets) {
   var alphabet = alphabets[alphabetName]
-
-  bases[alphabetName] = require('../')(alphabet)
+  bases[alphabetName] = makeCodec(alphabet, alphabet.length === 58)
 }
 
 describe('bs*', function () {
