@@ -1,10 +1,19 @@
 // base* encoding
 // Credits to https://github.com/cryptocoinjs/bs58
 
-module.exports = function base (ALPHABET) {
+module.exports = function base (ALPHABET, canonical) {
+  if (canonical === undefined) {
+    canonical = true
+  }
+
   var ALPHABET_MAP = {}
   var BASE = ALPHABET.length
   var LEADER = ALPHABET.charAt(0)
+  var FACTOR = Math.log(256) / Math.log(BASE)
+  var AFFINITY = FACTOR < 1.2
+  if (!canonical && BASE > 255) {
+    throw new Error('only works for bases 2 to 255')
+  }
 
   // pre-compute lookup table
   for (var i = 0; i < ALPHABET.length; i++) {
@@ -38,8 +47,15 @@ module.exports = function base (ALPHABET) {
     }
 
     // deal with leading zeros
-    for (i = 0; buffer[i] === 0 && i < buffer.length - 1; i++) {
-      digits.push(0)
+    if (canonical) {
+      for (i = 0; buffer[i] === 0 && i < buffer.length - 1; i++) {
+        digits.push(0)
+      }
+    } else {
+      var length = (AFFINITY ? Math.ceil : Math.round)(buffer.length * FACTOR)
+      while (digits.length < length) {
+        digits.push(0)
+      }
     }
 
     return digits.reverse().map(function (digit) {
@@ -76,8 +92,15 @@ module.exports = function base (ALPHABET) {
     }
 
     // deal with leading zeros
-    for (i = 0; string[i] === LEADER && i < string.length - 1; i++) {
-      bytes.push(0)
+    if (canonical) {
+      for (i = 0; string[i] === LEADER && i < string.length - 1; i++) {
+        bytes.push(0)
+      }
+    } else {
+      var length = (AFFINITY ? Math.floor : Math.round)(string.length / FACTOR)
+      while (bytes.length < length) {
+        bytes.push(0)
+      }
     }
 
     return bytes.reverse()
