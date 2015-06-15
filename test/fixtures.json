@@ -5,6 +5,11 @@
   },
   "valid": [
     {
+      "alphabet": "base2",
+      "hex": "ff00ff00",
+      "string": "11111111000000001111111100000000"
+    },
+    {
       "alphabet": "base58",
       "hex": "",
       "string": ""
