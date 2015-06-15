@@ -4,6 +4,7 @@
 module.exports = function base (ALPHABET) {
   var ALPHABET_MAP = {}
   var BASE = ALPHABET.length
+  var LEADER = ALPHABET.charAt(0)
 
   // pre-compute lookup table
   for (var i = 0; i < ALPHABET.length; i++) {
@@ -75,7 +76,7 @@ module.exports = function base (ALPHABET) {
     }
 
     // deal with leading zeros
-    for (i = 0; string[i] === '1' && i < string.length - 1; i++) {
+    for (i = 0; string[i] === LEADER && i < string.length - 1; i++) {
       bytes.push(0)
     }
 
