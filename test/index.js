@@ -1,27 +1,34 @@
 /* global describe, it */
 
 var assert = require('assert')
-
-var BASE58 = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'
-var base58 = require('../')(BASE58)
-
 var fixtures = require('./fixtures.json')
 
+var alphabets = fixtures.alphabets
+var bases = {}
+
+for (var alphabetName in alphabets) {
+  var alphabet = alphabets[alphabetName]
+
+  bases[alphabetName] = require('../')(alphabet)
+}
+
 describe('bs*', function () {
-  describe('encode base58', function () {
+  describe('encode', function () {
     fixtures.valid.forEach(function (f) {
-      it('can encode ' + f.hex, function () {
-        var actual = base58.encode(new Buffer(f.hex, 'hex'))
+      it('can encode ' + f.alphabet + ': ' + f.hex, function () {
+        var base = bases[f.alphabet]
+        var actual = base.encode(new Buffer(f.hex, 'hex'))
 
         assert.strictEqual(actual, f.string)
       })
     })
   })
 
-  describe('decode base58', function () {
+  describe('decode', function () {
     fixtures.valid.forEach(function (f) {
-      it('can decode ' + f.string, function () {
-        var actual = new Buffer(base58.decode(f.string)).toString('hex')
+      it('can decode ' + f.alphabet + ': ' + f.string, function () {
+        var base = bases[f.alphabet]
+        var actual = new Buffer(base.decode(f.string)).toString('hex')
 
         assert.strictEqual(actual, f.hex)
       })
@@ -29,9 +36,11 @@ describe('bs*', function () {
 
     fixtures.invalid.forEach(function (f) {
       it('throws on ' + f.description, function () {
+        var base = bases[f.alphabet]
+
         assert.throws(function () {
-          base58.decode(f.string)
-        }, /Non-base58 character/)
+          base.decode(f.string)
+        }, new RegExp(f.exception))
       })
     })
   })

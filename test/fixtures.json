@@ -1,81 +1,109 @@
 {
+  "alphabets": {
+    "base2": "01",
+    "base58": "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
+  },
   "valid": [
     {
+      "alphabet": "base58",
       "hex": "",
       "string": ""
     },
     {
+      "alphabet": "base58",
       "hex": "61",
       "string": "2g"
     },
     {
+      "alphabet": "base58",
       "hex": "626262",
       "string": "a3gV"
     },
     {
+      "alphabet": "base58",
       "hex": "636363",
       "string": "aPEr"
     },
     {
+      "alphabet": "base58",
       "hex": "73696d706c792061206c6f6e6720737472696e67",
       "string": "2cFupjhnEsSn59qHXstmK2ffpLv2"
     },
     {
+      "alphabet": "base58",
       "hex": "00eb15231dfceb60925886b67d065299925915aeb172c06647",
       "string": "1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L"
     },
     {
+      "alphabet": "base58",
       "hex": "516b6fcd0f",
       "string": "ABnLTmg"
     },
     {
+      "alphabet": "base58",
       "hex": "bf4f89001e670274dd",
       "string": "3SEo3LWLoPntC"
     },
     {
+      "alphabet": "base58",
       "hex": "572e4794",
       "string": "3EFU7m"
     },
     {
+      "alphabet": "base58",
       "hex": "ecac89cad93923c02321",
       "string": "EJDM8drfXA6uyA"
     },
     {
+      "alphabet": "base58",
       "hex": "10c8511e",
       "string": "Rt5zm"
     },
     {
+      "alphabet": "base58",
       "hex": "00000000000000000000",
       "string": "1111111111"
     },
     {
+      "alphabet": "base58",
       "hex": "801184cd2cdd640ca42cfc3a091c51d549b2f016d454b2774019c2b2d2e08529fd206ec97e",
       "string": "5Hx15HFGyep2CfPxsJKe2fXJsCVn5DEiyoeGGF6JZjGbTRnqfiD"
     },
     {
+      "alphabet": "base58",
       "hex": "003c176e659bea0f29a3e9bf7880c112b1b31b4dc826268187",
       "string": "16UjcYNBG9GTK4uq2f7yYEbuifqCzoLMGS"
     }
   ],
   "invalid": [
     {
+      "alphabet": "base58",
       "description": "non-base58 string",
+      "exception": "Non-base58 character",
       "string": "invalid"
     },
     {
+      "alphabet": "base58",
       "description": "non-base58 alphabet",
+      "exception": "Non-base58 character",
       "string": "c2F0b3NoaQo="
     },
     {
+      "alphabet": "base58",
       "description": "leading whitespace",
+      "exception": "Non-base58 character",
       "string": " 1111111111"
     },
     {
+      "alphabet": "base58",
       "description": "trailing whitespace",
+      "exception": "Non-base58 character",
       "string": "1111111111 "
     },
     {
+      "alphabet": "base58",
       "description": "unexpected character after whitespace",
+      "exception": "Non-base58 character",
       "string": " \t\n\u000b\f\r skip \r\f\u000b\n\t a"
     }
   ]
