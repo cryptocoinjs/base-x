@@ -1,5 +1,10 @@
 // base* encoding
-// Credits to https://github.com/cryptocoinjs/bs58
+// Forked from https://github.com/cryptocoinjs/bs58
+// Originally written by Mike Hearn for BitcoinJ
+// Copyright (c) 2011 Google Inc
+// Ported to JavaScript by Stefan Thomas
+// Merged Buffer refactorings from base58-native by Stephen Pair
+// Copyright (c) 2013 BitPay Inc
 
 module.exports = function base (ALPHABET) {
   var ALPHABET_MAP = {}
@@ -42,10 +47,12 @@ module.exports = function base (ALPHABET) {
       digits.push(0)
     }
 
+    // convert digits to a string
     var str = ''
     for (i = digits.length - 1; i >= 0; i--) {
-      str = str + ALPHABET[digits[i]]
+      str += ALPHABET[digits[i]]
     }
+
     return str
   }
 
