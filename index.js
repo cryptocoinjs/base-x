@@ -42,9 +42,11 @@ module.exports = function base (ALPHABET) {
       digits.push(0)
     }
 
-    return digits.reverse().map(function (digit) {
-      return ALPHABET[digit]
-    }).join('')
+    var str = ''
+    for (i = digits.length - 1; i >= 0; i--) {
+      str = str + ALPHABET[digits[i]]
+    }
+    return str
   }
 
   function decode (string) {
