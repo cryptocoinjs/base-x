@@ -7,7 +7,13 @@
     {
       "alphabet": "base2",
       "hex": "00ff",
-      "string": "0000000011111111"
+      "comment" : "Note the first leading zero byte is compressed into 1 char",
+      "string": "011111111"
+    },
+    {
+      "alphabet": "base2",
+      "hex": "0fff",
+      "string": "111111111111"
     },
     {
       "alphabet": "base2",
