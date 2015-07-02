@@ -12,7 +12,7 @@ for (var alphabetName in alphabets) {
   bases[alphabetName] = require('../')(alphabet)
 }
 
-describe('bs*', function () {
+describe('base-x', function () {
   describe('encode', function () {
     fixtures.valid.forEach(function (f) {
       it('can encode ' + f.alphabet + ': ' + f.hex, function () {

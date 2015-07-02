@@ -1,6 +1,7 @@
 {
   "alphabets": {
     "base2": "01",
+    "base16": "0123456789abcdef",
     "base58": "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
   },
   "valid": [
@@ -24,6 +25,21 @@
       "alphabet": "base2",
       "hex": "ff00ff00",
       "string": "11111111000000001111111100000000"
+    },
+    {
+      "alphabet": "base16",
+      "hex": "0000000f",
+      "string": "000f"
+    },
+    {
+      "alphabet": "base16",
+      "hex": "000fff",
+      "string": "0fff"
+    },
+    {
+      "alphabet": "base16",
+      "hex": "ffff",
+      "string": "ffff"
     },
     {
       "alphabet": "base58",
