@@ -6,6 +6,11 @@
   "valid": [
     {
       "alphabet": "base2",
+      "hex": "000f",
+      "string": "01111"
+    },
+    {
+      "alphabet": "base2",
       "hex": "00ff",
       "comment" : "Note the first leading zero byte is compressed into 1 char",
       "string": "011111111"
