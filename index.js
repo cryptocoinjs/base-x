@@ -1,4 +1,4 @@
-// base* encoding
+// base-x encoding
 // Forked from https://github.com/cryptocoinjs/bs58
 // Originally written by Mike Hearn for BitcoinJ
 // Copyright (c) 2011 Google Inc
