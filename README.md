@@ -1,6 +1,6 @@
 # base-x
 
-[![TRAVIS](https://secure.travis-ci.org/dcousens/base-x.png)](http://travis-ci.org/dcousens/base-x)
+[![TRAVIS](https://secure.travis-ci.org/cryptocoinjs/base-x.png)](http://travis-ci.org/cryptocoinjs/base-x)
 [![NPM](http://img.shields.io/npm/v/base-x.svg)](https://www.npmjs.org/package/base-x)
 
 [![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
