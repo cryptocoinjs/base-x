@@ -30,6 +30,10 @@
   ],
   "author": "Daniel Cousens",
   "license": "MIT",
+  "files": [
+    "index.js",
+    "README.md"
+  ],
   "devDependencies": {
     "mocha": "*",
     "standard": "*"
