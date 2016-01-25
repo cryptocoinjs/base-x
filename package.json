@@ -35,6 +35,7 @@
     "README.md"
   ],
   "devDependencies": {
+    "benchmark": "^2.0.0",
     "mocha": "*",
     "standard": "*"
   }
