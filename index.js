@@ -6,6 +6,10 @@
 // Merged Buffer refactorings from base58-native by Stephen Pair
 // Copyright (c) 2013 BitPay Inc
 
+/**
+ * @param {string} ALPHABET
+ * @return {encode: function, decode: function}
+ */
 module.exports = function base (ALPHABET) {
   var ALPHABET_MAP = {}
   var BASE = ALPHABET.length
@@ -16,76 +20,82 @@ module.exports = function base (ALPHABET) {
     ALPHABET_MAP[ALPHABET.charAt(i)] = i
   }
 
-  function encode (buffer) {
-    if (buffer.length === 0) return ''
+  /**
+   * @param {(Buffer|number[])} source
+   * @return {string}
+   */
+  function encode (source) {
+    if (source.length === 0) {
+      return ''
+    }
 
-    var i, j
     var digits = [0]
+    for (var i = 0; i < source.length; ++i) {
+      var carry = (digits[0] << 8) + source[i]
+      digits[0] = carry % BASE
+      carry = (carry / BASE) | 0
 
-    for (i = 0; i < buffer.length; i++) {
-      for (j = 0; j < digits.length; j++) digits[j] <<= 8
-
-      digits[0] += buffer[i]
-
-      var carry = 0
-      for (j = 0; j < digits.length; ++j) {
-        digits[j] += carry
-
-        carry = (digits[j] / BASE) | 0
-        digits[j] %= BASE
+      for (var j = 1; j < digits.length; ++j) {
+        carry += digits[j] << 8
+        digits[j] = carry % BASE
+        carry = (carry / BASE) | 0
       }
 
-      while (carry) {
+      while (carry > 0) {
         digits.push(carry % BASE)
-
         carry = (carry / BASE) | 0
       }
     }
 
     // deal with leading zeros
-    for (i = 0; buffer[i] === 0 && i < buffer.length - 1; i++) {
+    for (var k = 0; source[k] === 0 && k < source.length - 1; ++k) {
       digits.push(0)
     }
 
     // convert digits to a string
-    var str = ''
-    for (i = digits.length - 1; i >= 0; i--) {
-      str += ALPHABET[digits[i]]
+    for (var ii = 0, jj = digits.length - 1; ii <= jj; ++ii, --jj) {
+      var tmp = ALPHABET[digits[ii]]
+      digits[ii] = ALPHABET[digits[jj]]
+      digits[jj] = tmp
     }
 
-    return str
+    return digits.join('')
   }
 
+  /**
+   * @param {string} string
+   * @return {number[]}
+   */
   function decode (string) {
-    if (string.length === 0) return []
+    if (string.length === 0) {
+      return []
+    }
 
-    var i, j
     var bytes = [0]
-
-    for (i = 0; i < string.length; i++) {
-      var c = string[i]
-      if (!(c in ALPHABET_MAP)) throw new Error('Non-base' + BASE + ' character')
-
-      for (j = 0; j < bytes.length; j++) bytes[j] *= BASE
-      bytes[0] += ALPHABET_MAP[c]
-
-      var carry = 0
-      for (j = 0; j < bytes.length; ++j) {
-        bytes[j] += carry
-
-        carry = bytes[j] >> 8
-        bytes[j] &= 0xff
+    for (var i = 0; i < string.length; i++) {
+      var value = ALPHABET_MAP[string[i]]
+      if (value === undefined) {
+        throw new Error('Non-base' + BASE + ' character')
       }
 
-      while (carry) {
-        bytes.push(carry & 0xff)
+      var carry = bytes[0] * BASE + value
+      bytes[0] = carry & 0xff
+      carry >>= 8
 
+      for (var j = 1; j < bytes.length; ++j) {
+        carry += bytes[j] * BASE
+        bytes[j] = carry & 0xff
+        carry >>= 8
+      }
+
+      while (carry > 0) {
+        bytes.push(carry & 0xff)
         carry >>= 8
       }
     }
 
     // deal with leading zeros
-    for (i = 0; string[i] === LEADER && i < string.length - 1; i++) {
+    for (var k = 0; string[k] === LEADER && k < string.length - 1; ++k) {
       bytes.push(0)
     }
 

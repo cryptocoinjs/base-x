@@ -3,8 +3,8 @@
 var crypto = require('crypto')
 var benchmark = require('benchmark')
 
-var baseX = require('../')
-var bs58 = baseX('123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz')
+var bs58ALPHABET = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'
+var bs58 = require('../')(bs58ALPHABET)
 
 var fixtureIndex = 0
 var resetFixtureIndex = function () { fixtureIndex = 0 }
