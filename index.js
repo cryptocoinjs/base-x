@@ -25,9 +25,7 @@ module.exports = function base (ALPHABET) {
    * @return {string}
    */
   function encode (source) {
-    if (source.length === 0) {
-      return ''
-    }
+    if (source.length === 0) return ''
 
     var digits = [0]
     for (var i = 0; i < source.length; ++i) {
@@ -67,16 +65,12 @@ module.exports = function base (ALPHABET) {
    * @return {number[]}
    */
   function decode (string) {
-    if (string.length === 0) {
-      return []
-    }
+    if (string.length === 0) return []
 
     var bytes = [0]
     for (var i = 0; i < string.length; i++) {
       var value = ALPHABET_MAP[string[i]]
-      if (value === undefined) {
-        throw new Error('Non-base' + BASE + ' character')
-      }
+      if (value === undefined) throw new Error('Non-base' + BASE + ' character')
 
       var carry = bytes[0] * BASE + value
       bytes[0] = carry & 0xff
