@@ -9,7 +9,7 @@ var bases = {}
 for (var alphabetName in alphabets) {
   var alphabet = alphabets[alphabetName]
 
-  bases[alphabetName] = require('../')(alphabet)
+  bases[alphabetName] = require('../js.js')(alphabet)
 }
 
 describe('base-x', function () {

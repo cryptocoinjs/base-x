@@ -3,8 +3,9 @@
 var crypto = require('crypto')
 var benchmark = require('benchmark')
 
-var baseX = require('../')
-var bs58 = baseX('123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz')
+var bs58ALPHABET = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'
+var bs58js = require('../js.js')(bs58ALPHABET)
+var bs58addon = require('../bindings.js')(bs58ALPHABET)
 
 var fixtureIndex = 0
 var resetFixtureIndex = function () { fixtureIndex = 0 }
@@ -25,7 +26,7 @@ for (var i = 0; i < fixtures.length; ++i) {
 
   fixtures[i] = {
     source: seed,
-    result: bs58.encode(seed)
+    result: bs58js.encode(seed)
   }
 }
 
@@ -38,26 +39,36 @@ if (/fast/i.test(process.argv[2])) {
   benchmark.options.minTime = 1
 }
 
-new benchmark.Suite({
-  onStart: function () {
-    console.log('--------------------------------------------------')
-  },
-  onCycle: function (event) {
-    console.log(String(event.target))
-  },
-  onError: function (event) {
-    console.error(event.target.error)
-  },
-  onComplete: function () {
-    console.log('==================================================')
-  }
-})
-.add('encode', function () {
-  var fixture = getNextFixture()
-  bs58.encode(fixture.source)
-}, {onStart: resetFixtureIndex, onCycle: resetFixtureIndex})
-.add('decode', function () {
-  var fixture = getNextFixture()
-  bs58.decode(fixture.result)
-}, {onStart: resetFixtureIndex, onCycle: resetFixtureIndex})
-.run()
+/**
+ * @param {string} name
+ * @param {function} bs58
+ */
+function runBenchmark (name, bs58) {
+  new benchmark.Suite(name, {
+    onStart: function () {
+      console.log('Benchmarking: ' + name)
+      console.log('--------------------------------------------------')
+    },
+    onCycle: function (event) {
+      console.log(String(event.target))
+    },
+    onError: function (event) {
+      console.error(event.target.error)
+    },
+    onComplete: function () {
+      console.log('==================================================')
+    }
+  })
+  .add('encode', function () {
+    var fixture = getNextFixture()
+    bs58.encode(fixture.source)
+  }, {onStart: resetFixtureIndex, onCycle: resetFixtureIndex})
+  .add('decode', function () {
+    var fixture = getNextFixture()
+    bs58.decode(fixture.result)
+  }, {onStart: resetFixtureIndex, onCycle: resetFixtureIndex})
+  .run()
+}
+
+// runBenchmark('js', bs58js)
+runBenchmark('addon', bs58addon)

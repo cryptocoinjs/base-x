@@ -2,20 +2,6 @@
   "name": "base-x",
   "version": "1.0.2",
   "description": "Fast base encoding / decoding of any given alphabet",
-  "main": "index.js",
-  "scripts": {
-    "standard": "standard",
-    "test": "npm run unit && npm run standard",
-    "unit": "mocha"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/dcousens/base-x.git"
-  },
-  "bugs": {
-    "url": "https://github.com/dcousens/base-x/issues"
-  },
-  "homepage": "https://github.com/dcousens/base-x",
   "keywords": [
     "base-x",
     "base58",
@@ -28,15 +14,45 @@
     "encode",
     "encoding"
   ],
-  "author": "Daniel Cousens",
+  "homepage": "https://github.com/cryptocoinjs/base-x",
+  "bugs": {
+    "url": "https://github.com/cryptocoinjs/base-x/issues"
+  },
   "license": "MIT",
+  "author": "Daniel Cousens",
   "files": [
     "index.js",
     "README.md"
   ],
+  "main": "bindings.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cryptocoinjs/base-x.git"
+  },
+  "scripts": {
+    "benchmark:node": "node benchmark/benchmark.js",
+    "clean": "node-gyp clean",
+    "install": "npm run rebuild",
+    "rebuild": "node-gyp rebuild",
+    "standard": "standard",
+    "test": "npm run unit && npm run standard",
+    "unit": "mocha"
+  },
+  "dependencies": {
+    "bindings": "^1.2.1",
+    "nan": "^2.2.0"
+  },
   "devDependencies": {
     "benchmark": "^2.0.0",
-    "mocha": "*",
-    "standard": "*"
+    "mocha": "^2.3.4",
+    "node-gyp": "^3.2.1",
+    "standard": "^5.4.1"
+  },
+  "engines": {
+    "node": ">=0.10"
+  },
+  "gypfile": true,
+  "browser": {
+    "./bindings.js": "./js.js"
   }
 }
