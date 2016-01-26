@@ -38,7 +38,6 @@
   "devDependencies": {
     "benchmark": "^2.0.0",
     "mocha": "^2.3.4",
-    "node-gyp": "^3.2.1",
     "standard": "^5.4.1"
   }
 }
