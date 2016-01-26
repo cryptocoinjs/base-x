@@ -112,6 +112,21 @@
       "string": "16UjcYNBG9GTK4uq2f7yYEbuifqCzoLMGS"
     },
     {
+      "alphabet": "base58",
+      "hex": "ffffffffffffffffffff",
+      "string": "FPBt6CHo3fovdL"
+    },
+    {
+      "alphabet": "base58",
+      "hex": "ffffffffffffffffffffffffff",
+      "string": "NKioeUVktgzXLJ1B3t"
+    },
+    {
+      "alphabet": "base58",
+      "hex": "ffffffffffffffffffffffffffffffff",
+      "string": "YcVfxkQb6JRzqk5kF2tNLv"
+    },
+    {
       "alphabet": "base2",
       "hex": "fb6f9ac3",
       "string": "11111011011011111001101011000011"
