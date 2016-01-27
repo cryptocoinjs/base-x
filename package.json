@@ -1,6 +1,6 @@
 {
   "name": "base-x",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Fast base encoding / decoding of any given alphabet",
   "keywords": [
     "base-x",
