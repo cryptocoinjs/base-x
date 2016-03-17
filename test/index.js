@@ -24,6 +24,12 @@ fixtures.valid.forEach(function (f) {
     t.same(actual, f.hex)
     t.end()
   })
+
+  tape.test('should be valid ' + f.alphabet + ': ' + f.string, function (t) {
+    var base = bases[f.alphabet]
+    t.ok(base.isValid(f.string))
+    t.end()
+  })
 })
 
 fixtures.invalid.forEach(function (f) {
@@ -33,6 +39,12 @@ fixtures.invalid.forEach(function (f) {
     t.throws(function () {
       base.decode(f.string)
     }, new RegExp(f.exception))
+    t.end()
+  })
+
+  tape.test('should be invalid ' + f.description, function (t) {
+    var base = bases[f.alphabet]
+    t.notOk(base.isValid(f.string))
     t.end()
   })
 })
