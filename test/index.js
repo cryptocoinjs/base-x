@@ -1,47 +1,50 @@
-/* global describe, it */
-
-var assert = require('assert')
+var tape = require('tape')
 var fixtures = require('./fixtures.json')
 
-var alphabets = fixtures.alphabets
-var bases = {}
+var bases = Object.keys(fixtures.alphabets).reduce(function (bases, alphabetName) {
+  bases[alphabetName] = require('../')(fixtures.alphabets[alphabetName])
+  return bases
+}, {})
 
-for (var alphabetName in alphabets) {
-  var alphabet = alphabets[alphabetName]
+fixtures.valid.forEach(function (f) {
+  tape.test('can encode ' + f.alphabet + ': ' + f.hex, function (t) {
+    var base = bases[f.alphabet]
+    var actual = base.encode(new Buffer(f.hex, 'hex'))
 
-  bases[alphabetName] = require('../')(alphabet)
-}
+    t.same(actual, f.string)
+    t.end()
+  })
+})
 
-describe('base-x', function () {
-  describe('encode', function () {
-    fixtures.valid.forEach(function (f) {
-      it('can encode ' + f.alphabet + ': ' + f.hex, function () {
-        var base = bases[f.alphabet]
-        var actual = base.encode(new Buffer(f.hex, 'hex'))
+fixtures.valid.forEach(function (f) {
+  tape.test('can decode ' + f.alphabet + ': ' + f.string, function (t) {
+    var base = bases[f.alphabet]
+    var actual = new Buffer(base.decode(f.string)).toString('hex')
 
-        assert.strictEqual(actual, f.string)
-      })
-    })
+    t.same(actual, f.hex)
+    t.end()
   })
 
-  describe('decode', function () {
-    fixtures.valid.forEach(function (f) {
-      it('can decode ' + f.alphabet + ': ' + f.string, function () {
-        var base = bases[f.alphabet]
-        var actual = new Buffer(base.decode(f.string)).toString('hex')
+  tape.test('should be valid ' + f.alphabet + ': ' + f.string, function (t) {
+    var base = bases[f.alphabet]
+    t.ok(base.isValid(f.string))
+    t.end()
+  })
+})
 
-        assert.strictEqual(actual, f.hex)
-      })
-    })
+fixtures.invalid.forEach(function (f) {
+  tape.test('decode throws on ' + f.description, function (t) {
+    var base = bases[f.alphabet]
 
-    fixtures.invalid.forEach(function (f) {
-      it('throws on ' + f.description, function () {
-        var base = bases[f.alphabet]
+    t.throws(function () {
+      base.decode(f.string)
+    }, new RegExp(f.exception))
+    t.end()
+  })
 
-        assert.throws(function () {
-          base.decode(f.string)
-        }, new RegExp(f.exception))
-      })
-    })
+  tape.test('should be invalid ' + f.description, function (t) {
+    var base = bases[f.alphabet]
+    t.notOk(base.isValid(f.string))
+    t.end()
   })
 })

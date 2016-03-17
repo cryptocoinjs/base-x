@@ -551,31 +551,31 @@
     {
       "alphabet": "base58",
       "description": "non-base58 string",
-      "exception": "Non-base58 character",
+      "exception": "^Error: Non-base58 character$",
       "string": "invalid"
     },
     {
       "alphabet": "base58",
       "description": "non-base58 alphabet",
-      "exception": "Non-base58 character",
+      "exception": "^Error: Non-base58 character$",
       "string": "c2F0b3NoaQo="
     },
     {
       "alphabet": "base58",
       "description": "leading whitespace",
-      "exception": "Non-base58 character",
+      "exception": "^Error: Non-base58 character$",
       "string": " 1111111111"
     },
     {
       "alphabet": "base58",
       "description": "trailing whitespace",
-      "exception": "Non-base58 character",
+      "exception": "^Error: Non-base58 character$",
       "string": "1111111111 "
     },
     {
       "alphabet": "base58",
       "description": "unexpected character after whitespace",
-      "exception": "Non-base58 character",
+      "exception": "^Error: Non-base58 character$",
       "string": " \t\n\u000b\f\r skip \r\f\u000b\n\t a"
     }
   ]
