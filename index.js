@@ -6,10 +6,6 @@
 // Merged Buffer refactorings from base58-native by Stephen Pair
 // Copyright (c) 2013 BitPay Inc
 
-/**
- * @param {string} ALPHABET
- * @return {encode: function, decode: function}
- */
 module.exports = function base (ALPHABET) {
   var ALPHABET_MAP = {}
   var BASE = ALPHABET.length
@@ -20,20 +16,12 @@ module.exports = function base (ALPHABET) {
     ALPHABET_MAP[ALPHABET.charAt(i)] = i
   }
 
-  /**
-   * @param {(Buffer|number[])} source
-   * @return {string}
-   */
   function encode (source) {
     if (source.length === 0) return ''
 
     var digits = [0]
     for (var i = 0; i < source.length; ++i) {
-      var carry = (digits[0] << 8) + source[i]
-      digits[0] = carry % BASE
-      carry = (carry / BASE) | 0
-
-      for (var j = 1; j < digits.length; ++j) {
+      for (var j = 0, carry = source[i]; j < digits.length; ++j) {
         carry += digits[j] << 8
         digits[j] = carry % BASE
         carry = (carry / BASE) | 0
@@ -60,10 +48,6 @@ module.exports = function base (ALPHABET) {
     return digits.join('')
   }
 
-  /**
-   * @param {string} string
-   * @return {number[]}
-   */
   function decode (string) {
     if (string.length === 0) return []
 
@@ -72,11 +56,7 @@ module.exports = function base (ALPHABET) {
       var value = ALPHABET_MAP[string[i]]
       if (value === undefined) throw new Error('Non-base' + BASE + ' character')
 
-      var carry = bytes[0] * BASE + value
-      bytes[0] = carry & 0xff
-      carry >>= 8
-
-      for (var j = 1; j < bytes.length; ++j) {
+      for (var j = 0, carry = value; j < bytes.length; ++j) {
         carry += bytes[j] * BASE
         bytes[j] = carry & 0xff
         carry >>= 8
