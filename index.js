@@ -76,8 +76,17 @@ module.exports = function base (ALPHABET) {
     return bytes.reverse()
   }
 
+  function isValid (string) {
+    for (var i = 0; i < string.length; i++) {
+      if (ALPHABET_MAP[string[i]] === undefined) return false
+    }
+
+    return true
+  }
+
   return {
     encode: encode,
-    decode: decode
+    decode: decode,
+    isValid: isValid
   }
 }

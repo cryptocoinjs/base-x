@@ -31,7 +31,7 @@
   "scripts": {
     "benchmark:node": "node benchmark/benchmark.js",
     "standard": "standard",
-    "test": "npm run unit && npm run standard",
+    "test": "npm run standard && npm run unit",
     "unit": "tape test/*.js"
   },
   "devDependencies": {
