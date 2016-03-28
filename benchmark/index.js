@@ -1,7 +1,7 @@
 'use strict'
-
 var crypto = require('crypto')
 var benchmark = require('benchmark')
+var XorShift128Plus = require('xorshift.js').XorShift128Plus
 
 var bs58ALPHABET = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'
 var bs58 = require('../')(bs58ALPHABET)
@@ -18,15 +18,12 @@ var getNextFixture = function () {
   return fixture
 }
 
-var seed = process.env.SEED || crypto.randomBytes(32).toString('hex')
+var seed = process.env.SEED || crypto.randomBytes(16).toString('hex')
 console.log('Seed: ' + seed)
+var prng = new XorShift128Plus(seed)
 for (var i = 0; i < fixtures.length; ++i) {
-  seed = crypto.createHash('sha256').update(seed).digest()
-
-  fixtures[i] = {
-    source: seed,
-    result: bs58.encode(seed)
-  }
+  let source = prng.randomBytes(32)
+  fixtures[i] = { source, string: bs58.encode(source) }
 }
 
 if (/fast/i.test(process.argv[2])) {
@@ -58,6 +55,6 @@ new benchmark.Suite({
 }, {onStart: resetFixtureIndex, onCycle: resetFixtureIndex})
 .add('decode', function () {
   var fixture = getNextFixture()
-  bs58.decode(fixture.result)
+  bs58.decode(fixture.string)
 }, {onStart: resetFixtureIndex, onCycle: resetFixtureIndex})
 .run()
