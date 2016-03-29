@@ -1,7 +1,7 @@
 # base-x
 
-[![TRAVIS](https://secure.travis-ci.org/cryptocoinjs/base-x.png)](http://travis-ci.org/cryptocoinjs/base-x)
-[![NPM](http://img.shields.io/npm/v/base-x.svg)](https://www.npmjs.org/package/base-x)
+[![NPM Package](https://img.shields.io/npm/v/base-x.svg?style=flat-square)](https://www.npmjs.org/package/base-x)
+[![Build Status](https://img.shields.io/travis/cryptocoinjs/base-x.svg?branch=master&style=flat-square)](https://travis-ci.org/cryptocoinjs/base-x)
 
 [![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
 

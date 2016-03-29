@@ -33,19 +33,14 @@ module.exports = function base (ALPHABET) {
       }
     }
 
+    var string = ''
+
     // deal with leading zeros
-    for (var k = 0; source[k] === 0 && k < source.length - 1; ++k) {
-      digits.push(0)
-    }
-
+    for (var k = 0; source[k] === 0 && k < source.length - 1; ++k) string += ALPHABET[0]
     // convert digits to a string
-    for (var ii = 0, jj = digits.length - 1; ii <= jj; ++ii, --jj) {
-      var tmp = ALPHABET[digits[ii]]
-      digits[ii] = ALPHABET[digits[jj]]
-      digits[jj] = tmp
-    }
+    for (var q = digits.length - 1; q >= 0; --q) string += ALPHABET[digits[q]]
 
-    return digits.join('')
+    return string
   }
 
   function decode (string) {
