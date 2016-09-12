@@ -31,6 +31,8 @@ See below for a list of commonly recognized alphabets, and their respective base
 
 Base | Alphabet
 ------------- | -------------
+2 | `01`
+8 | `01234567`
 11 | `0123456789a`
 16 | `0123456789abcdef`
 32 | `0123456789ABCDEFGHJKMNPQRSTVWXYZ`
