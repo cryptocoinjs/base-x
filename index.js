@@ -48,13 +48,13 @@ module.exports = function base (ALPHABET) {
     return digits.join('')
   }
 
-  function decode (string) {
+  function decodeUnsafe (string) {
     if (string.length === 0) return []
 
     var bytes = [0]
     for (var i = 0; i < string.length; i++) {
       var value = ALPHABET_MAP[string[i]]
-      if (value === undefined) throw new Error('Non-base' + BASE + ' character')
+      if (value === undefined) return
 
       for (var j = 0, carry = value; j < bytes.length; ++j) {
         carry += bytes[j] * BASE
@@ -76,8 +76,16 @@ module.exports = function base (ALPHABET) {
     return bytes.reverse()
   }
 
+  function decode (string) {
+    var array = decodeUnsafe(string)
+    if (array) return array
+
+    throw new Error('Non-base' + BASE + ' character')
+  }
+
   return {
     encode: encode,
+    decodeUnsafe: decodeUnsafe,
     decode: decode
   }
 }
