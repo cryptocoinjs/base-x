@@ -68,7 +68,7 @@ module.exports = function base (ALPHABET) {
       bytes.push(0)
     }
 
-    return new Buffer(bytes.reverse())
+    return Buffer.from(bytes.reverse())
   }
 
   function decode (string) {
