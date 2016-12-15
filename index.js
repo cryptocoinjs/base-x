@@ -12,8 +12,8 @@ module.exports = function base (ALPHABET) {
   var LEADER = ALPHABET.charAt(0)
 
   // pre-compute lookup table
-  for (var i = 0; i < ALPHABET.length; i++) {
-    ALPHABET_MAP[ALPHABET.charAt(i)] = i
+  for (var z = 0; z < ALPHABET.length; z++) {
+    ALPHABET_MAP[ALPHABET.charAt(z)] = z
   }
 
   function encode (source) {
