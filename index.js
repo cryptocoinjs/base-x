@@ -44,7 +44,7 @@ module.exports = function base (ALPHABET) {
   }
 
   function decodeUnsafe (string) {
-    if (string.length === 0) return []
+    if (string.length === 0) return new Buffer(0)
 
     var bytes = [0]
     for (var i = 0; i < string.length; i++) {
