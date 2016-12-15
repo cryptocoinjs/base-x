@@ -9,7 +9,7 @@ var bases = Object.keys(fixtures.alphabets).reduce(function (bases, alphabetName
 fixtures.valid.forEach(function (f) {
   tape.test('can encode ' + f.alphabet + ': ' + f.hex, function (t) {
     var base = bases[f.alphabet]
-    var actual = base.encode(new Buffer(f.hex, 'hex'))
+    var actual = base.encode(Buffer.from(f.hex, 'hex'))
 
     t.same(actual, f.string)
     t.end()
@@ -19,7 +19,7 @@ fixtures.valid.forEach(function (f) {
 fixtures.valid.forEach(function (f) {
   tape.test('can decode ' + f.alphabet + ': ' + f.string, function (t) {
     var base = bases[f.alphabet]
-    var actual = new Buffer(base.decode(f.string)).toString('hex')
+    var actual = Buffer.from(base.decode(f.string)).toString('hex')
 
     t.same(actual, f.hex)
     t.end()
@@ -35,4 +35,11 @@ fixtures.invalid.forEach(function (f) {
     }, new RegExp(f.exception))
     t.end()
   })
+})
+
+tape.test('decode should return Buffer', function (t) {
+  t.true(Buffer.isBuffer(bases.base2.decode('')))
+  t.true(Buffer.isBuffer(bases.base2.decode('01')))
+
+  t.end()
 })
