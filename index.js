@@ -47,7 +47,7 @@ module.exports = function base (ALPHABET) {
   }
 
   function decodeUnsafe (string) {
-    if (string.length === 0) return new Buffer(0)
+    if (string.length === 0) return Buffer.allocUnsafe(0)
 
     var bytes = [0]
     for (var i = 0; i < string.length; i++) {
@@ -71,7 +71,7 @@ module.exports = function base (ALPHABET) {
       bytes.push(0)
     }
 
-    return new Buffer(bytes.reverse())
+    return Buffer.from(bytes.reverse())
   }
 
   function decode (string) {
