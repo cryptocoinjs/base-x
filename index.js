@@ -44,7 +44,7 @@ module.exports = function base (ALPHABET) {
   }
 
   function decodeUnsafe (string) {
-    if (string.length === 0) return []
+    if (string.length === 0) return Buffer.allocUnsafe(0)
 
     var bytes = [0]
     for (var i = 0; i < string.length; i++) {
@@ -68,12 +68,12 @@ module.exports = function base (ALPHABET) {
       bytes.push(0)
     }
 
-    return bytes.reverse()
+    return Buffer.from(bytes.reverse())
   }
 
   function decode (string) {
-    var array = decodeUnsafe(string)
-    if (array) return array
+    var buffer = decodeUnsafe(string)
+    if (buffer) return buffer
 
     throw new Error('Non-base' + BASE + ' character')
   }
