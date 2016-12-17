@@ -19,7 +19,7 @@ fixtures.valid.forEach(function (f) {
 fixtures.valid.forEach(function (f) {
   tape.test('can decode ' + f.alphabet + ': ' + f.string, function (t) {
     var base = bases[f.alphabet]
-    var actual = Buffer.from(base.decode(f.string)).toString('hex')
+    var actual = base.decode(f.string).toString('hex')
 
     t.same(actual, f.hex)
     t.end()
