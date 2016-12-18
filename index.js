@@ -13,7 +13,10 @@ module.exports = function base (ALPHABET) {
 
   // pre-compute lookup table
   for (var z = 0; z < ALPHABET.length; z++) {
-    ALPHABET_MAP[ALPHABET.charAt(z)] = z
+    var x = ALPHABET.charAt(z)
+
+    if (ALPHABET_MAP[x] !== undefined) throw new TypeError(x + ' is ambiguous')
+    ALPHABET_MAP[x] = z
   }
 
   function encode (source) {

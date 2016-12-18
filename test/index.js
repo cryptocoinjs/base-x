@@ -1,8 +1,9 @@
+var basex = require('../')
 var tape = require('tape')
 var fixtures = require('./fixtures.json')
 
 var bases = Object.keys(fixtures.alphabets).reduce(function (bases, alphabetName) {
-  bases[alphabetName] = require('../')(fixtures.alphabets[alphabetName])
+  bases[alphabetName] = basex(fixtures.alphabets[alphabetName])
   return bases
 }, {})
 
@@ -31,6 +32,8 @@ fixtures.invalid.forEach(function (f) {
     var base = bases[f.alphabet]
 
     t.throws(function () {
+      if (!base) base = basex(f.alphabet)
+
       base.decode(f.string)
     }, new RegExp(f.exception))
     t.end()
