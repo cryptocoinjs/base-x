@@ -1,9 +1,9 @@
 var tape = require('tape')
 var fixtures = require('./fixtures.json')
 
-var bases = Object.keys(fixtures.alphabets).reduce(function (bases, alphabetName) {
-  bases[alphabetName] = require('../')(fixtures.alphabets[alphabetName])
-  return bases
+var bases = Object.keys(fixtures.alphabets).reduce(function (map, alphabetName) {
+  map[alphabetName] = require('../')(fixtures.alphabets[alphabetName])
+  return map
 }, {})
 
 fixtures.valid.forEach(function (f) {
