@@ -36,5 +36,8 @@
   "devDependencies": {
     "standard": "^6.0.8",
     "tape": "^4.5.1"
+  },
+  "engines": {
+    "node": ">=4.5.0"
   }
 }
