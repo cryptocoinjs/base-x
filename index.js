@@ -6,6 +6,8 @@
 // Merged Buffer refactorings from base58-native by Stephen Pair
 // Copyright (c) 2013 BitPay Inc
 
+var ByteArray = global && global['Buffer'] ? global['Buffer'] : Uint8Array
+
 module.exports = function base (ALPHABET) {
   var ALPHABET_MAP = {}
   var BASE = ALPHABET.length
@@ -47,7 +49,7 @@ module.exports = function base (ALPHABET) {
   }
 
   function decodeUnsafe (string) {
-    if (string.length === 0) return Buffer.allocUnsafe(0)
+    if (string.length === 0) return new ByteArray(0)
 
     var bytes = [0]
     for (var i = 0; i < string.length; i++) {
@@ -71,7 +73,7 @@ module.exports = function base (ALPHABET) {
       bytes.push(0)
     }
 
-    return Buffer.from(bytes.reverse())
+    return ByteArray.from(bytes.reverse())
   }
 
   function decode (string) {
