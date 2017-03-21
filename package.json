@@ -21,7 +21,8 @@
   "license": "MIT",
   "author": "Daniel Cousens",
   "files": [
-    "index.js"
+    "index.js",
+    "lib/buffer-from.js"
   ],
   "main": "index.js",
   "repository": {

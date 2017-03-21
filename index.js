@@ -7,6 +7,7 @@
 // Copyright (c) 2013 BitPay Inc
 
 module.exports = function base (ALPHABET) {
+  var bufferFrom = require('./lib/buffer-from')
   var ALPHABET_MAP = {}
   var BASE = ALPHABET.length
   var LEADER = ALPHABET.charAt(0)
@@ -71,7 +72,7 @@ module.exports = function base (ALPHABET) {
       bytes.push(0)
     }
 
-    return Buffer.from(bytes.reverse())
+    return bufferFrom(bytes.reverse())
   }
 
   function decode (string) {
