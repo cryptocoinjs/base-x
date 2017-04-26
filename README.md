@@ -52,13 +52,13 @@ single leader character. This is the first in the alphabet and will decode as 8
 bits. The other characters depend upon the base. For example, a base58 alphabet
 packs roughly 5.858 bits per character.
 
-This means the encoded string 000f (using a 0-f alphabet) will actually decode
-to 4 bytes unlike a typical hex codec which uniformly packs 4 bits into each
+This means the encoded string 000f (using a base16, 0-f alphabet) will actually decode
+to 4 bytes unlike a canonical hex encoding which uniformly packs 4 bits into each
 character.
 
 While unusual, this does mean that no padding is required and it works for bases
-like 43. If you need standard hex encoding or base64 encoding you probably don't
-want this.
+like 43. **If you need standard hex encoding, or base64 encoding, this module is NOT
+appropriate.**
 
 The algorithm used to convert the base of the number is roughly this:
 
