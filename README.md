@@ -76,12 +76,4 @@ assert hex(12345) == '0x3039'
 
 Of course the input is actually an array of digits already :)
 
-### Using base-x in Legacy Versions of Node (below 4.5)
-
-If you are using base-x in Node versions below `4.5.0`, please use `base-x ^2.0.0`.
-`base-x ^3.0.0` uses `Buffer.from` which is not supported prior to Node `4.5.0`.
-
-## License
-
-This library is free and open-source software released under the MIT license.
-
+## LICENSE [MIT](LICENSE)
