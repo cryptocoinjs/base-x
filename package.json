@@ -37,9 +37,6 @@
     "standard": "^6.0.8",
     "tape": "^4.5.1"
   },
-  "engines": {
-    "node": ">=4.5.0"
-  },
   "dependencies": {
     "safe-buffer": "^5.0.1"
   }
