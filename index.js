@@ -8,10 +8,12 @@
 
 var Buffer = require('safe-buffer').Buffer
 
-module.exports = function base (ALPHABET) {
+module.exports = function base (ALPHABET, delimiter, name) {
   var ALPHABET_MAP = {}
   var BASE = ALPHABET.length
   var LEADER = ALPHABET[0]
+  name = name || BASE
+  delimiter = delimiter || ''
 
   // pre-compute lookup table
   for (var z = 0; z < ALPHABET.length; z++) {
@@ -45,17 +47,14 @@ module.exports = function base (ALPHABET) {
     // convert digits to a string
     for (var q = digits.length - 1; q >= 0; --q) letters.push(ALPHABET[digits[q]])
 
-    if (ALPHABET instanceof Array) {
-      return letters.join(' ')
-    } else {
-      return letters.join('')
-    }
+    return letters.join(delimiter)
   }
 
   function decodeUnsafe (string) {
     if (string.length === 0) return Buffer.allocUnsafe(0)
 
-    var letters = ALPHABET instanceof Array ? string.split(' ') : string
+    var letters = string
+    if (delimiter) letters = letters.split(delimiter)
 
     var bytes = [0]
     for (var i = 0; i < letters.length; i++) {
