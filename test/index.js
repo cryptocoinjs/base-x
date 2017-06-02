@@ -1,3 +1,4 @@
+var Buffer = require('safe-buffer').Buffer
 var basex = require('../')
 var tape = require('tape')
 var fixtures = require('./fixtures.json')
@@ -10,7 +11,7 @@ var bases = Object.keys(fixtures.alphabets).reduce(function (bases, alphabetName
 fixtures.valid.forEach(function (f) {
   tape.test('can encode ' + f.alphabet + ': ' + f.hex, function (t) {
     var base = bases[f.alphabet]
-    var actual = base.encode(new Buffer(f.hex, 'hex'))
+    var actual = base.encode(Buffer.from(f.hex, 'hex'))
 
     t.same(actual, f.string)
     t.end()
