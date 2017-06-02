@@ -3,10 +3,15 @@ var basex = require('../')
 var tape = require('tape')
 var fixtures = require('./fixtures.json')
 
-var bases = Object.keys(fixtures.alphabets).reduce(function (bases, alphabetName) {
-  bases[alphabetName] = basex(fixtures.alphabets[alphabetName])
-  return bases
-}, {})
+var bases = {}
+Object.keys(fixtures.alphabets).forEach(function (alphabetName) {
+  var alphabet = fixtures.alphabets[alphabetName]
+  if (typeof alphabet === 'string') {
+    bases[alphabetName] = basex(alphabet)
+  } else {
+    bases[alphabetName] = basex(alphabet.symbols, alphabet.delimiter)
+  }
+})
 
 fixtures.valid.forEach(function (f) {
   tape.test('can encode ' + f.alphabet + ': ' + f.hex, function (t) {

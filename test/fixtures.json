@@ -2,7 +2,11 @@
   "alphabets": {
     "base2": "01",
     "base16": "0123456789abcdef",
-    "base58": "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
+    "base58": "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz",
+    "phonetic": {
+      "symbols": ["alpha","beta","charlie","delta","echo","foxtrot","golf","hotel","india"],
+      "delimiter": " "
+    }
   },
   "valid": [
     {
@@ -545,6 +549,31 @@
       "alphabet": "base58",
       "hex": "6d691bdd736346aa5a0a95b373b2ab",
       "string": "44Y6qTgSvRMkdqpQ5ufkN"
+    },
+    {
+      "alphabet": "phonetic",
+      "hex": "00",
+      "string": "alpha"
+    },
+    {
+      "alphabet": "phonetic",
+      "hex": "01",
+      "string": "beta"
+    },
+    {
+      "alphabet": "phonetic",
+      "hex": "07ff",
+      "string": "charlie hotel charlie echo"
+    },
+    {
+      "alphabet": "phonetic",
+      "hex": "0800",
+      "string": "charlie hotel charlie foxtrot"
+    },
+    {
+      "alphabet": "phonetic",
+      "hex": "3fffff",
+      "string": "hotel india alpha charlie echo echo golf"
     }
   ],
   "invalid": [

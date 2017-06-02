@@ -8,14 +8,16 @@
 
 var Buffer = require('safe-buffer').Buffer
 
-module.exports = function base (ALPHABET) {
+module.exports = function base (ALPHABET, delimiter, name) {
   var ALPHABET_MAP = {}
   var BASE = ALPHABET.length
-  var LEADER = ALPHABET.charAt(0)
+  var LEADER = ALPHABET[0]
+  name = name || BASE
+  delimiter = delimiter || ''
 
   // pre-compute lookup table
   for (var z = 0; z < ALPHABET.length; z++) {
-    var x = ALPHABET.charAt(z)
+    var x = ALPHABET[z]
 
     if (ALPHABET_MAP[x] !== undefined) throw new TypeError(x + ' is ambiguous')
     ALPHABET_MAP[x] = z
@@ -38,22 +40,25 @@ module.exports = function base (ALPHABET) {
       }
     }
 
-    var string = ''
+    var letters = []
 
     // deal with leading zeros
-    for (var k = 0; source[k] === 0 && k < source.length - 1; ++k) string += ALPHABET[0]
+    for (var k = 0; source[k] === 0 && k < source.length - 1; ++k) letters.push(ALPHABET[0])
     // convert digits to a string
-    for (var q = digits.length - 1; q >= 0; --q) string += ALPHABET[digits[q]]
+    for (var q = digits.length - 1; q >= 0; --q) letters.push(ALPHABET[digits[q]])
 
-    return string
+    return letters.join(delimiter)
   }
 
   function decodeUnsafe (string) {
     if (string.length === 0) return Buffer.allocUnsafe(0)
 
+    var letters = string
+    if (delimiter) letters = letters.split(delimiter)
+
     var bytes = [0]
-    for (var i = 0; i < string.length; i++) {
-      var value = ALPHABET_MAP[string[i]]
+    for (var i = 0; i < letters.length; i++) {
+      var value = ALPHABET_MAP[letters[i]]
       if (value === undefined) return
 
       for (var j = 0, carry = value; j < bytes.length; ++j) {
@@ -69,7 +74,7 @@ module.exports = function base (ALPHABET) {
     }
 
     // deal with leading zeros
-    for (var k = 0; string[k] === LEADER && k < string.length - 1; ++k) {
+    for (var k = 0; letters[k] === LEADER && k < letters.length - 1; ++k) {
       bytes.push(0)
     }
 
