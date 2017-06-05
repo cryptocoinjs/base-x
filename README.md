@@ -8,6 +8,8 @@
 Fast base encoding / decoding of any given alphabet using bitcoin style leading
 zero compression.
 
+**NOTE**: Using bitcoin style leading zero compression. Just say it.
+
 ## Example
 
 Base58
