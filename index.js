@@ -22,7 +22,7 @@ module.exports = function base (ALPHABET) {
   }
 
   function encode (source) {
-    if (source.length === 0) return ''
+    if (source === null || source.length === 0) return ''
 
     var digits = [0]
     for (var i = 0; i < source.length; ++i) {
