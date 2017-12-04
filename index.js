@@ -49,6 +49,7 @@ module.exports = function base (ALPHABET) {
   }
 
   function decodeUnsafe (string) {
+    if (typeof string !== 'string') throw new TypeError('Expected String')
     if (string.length === 0) return Buffer.allocUnsafe(0)
 
     var bytes = [0]

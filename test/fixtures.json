@@ -551,6 +551,12 @@
     {
       "alphabet": "base58",
       "description": "non-base58 string",
+      "exception": "^TypeError: Expected String$",
+      "string": {}
+    },
+    {
+      "alphabet": "base58",
+      "description": "non-base58 string",
       "exception": "^Error: Non-base58 character$",
       "string": "#####"
     },
