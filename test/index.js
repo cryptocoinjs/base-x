@@ -47,3 +47,12 @@ tape.test('decode should return Buffer', function (t) {
 
   t.end()
 })
+
+tape.test('encode throws on string', function (t) {
+  var base = bases.base58
+
+  t.throws(function () {
+    base.encode('a')
+  }, new RegExp('^TypeError: Expected Buffer$'))
+  t.end()
+})
