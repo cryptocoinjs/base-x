@@ -22,6 +22,8 @@ module.exports = function base (ALPHABET) {
   }
 
   function encode (source) {
+    if (!Buffer.isBuffer(source)) throw new TypeError('Expected Buffer')
+
     if (source.length === 0) return ''
 
     var digits = [0]
