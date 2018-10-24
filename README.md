@@ -77,3 +77,4 @@ assert hex(12345) == '0x3039'
 Of course the input is actually an array of digits already :)
 
 ## LICENSE [MIT](LICENSE)
+A direct derivation of the base58 implementation from [`bitcoin/bitcoin`](https://github.com/bitcoin/bitcoin/blob/f1e2f2a85962c1664e4e55471061af0eaa798d40/src/base58.cpp)
