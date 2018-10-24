@@ -13,8 +13,8 @@ fixtures.valid.forEach(function (f) {
     var base = bases[f.alphabet]
     var actual = base.encode(Buffer.from(f.hex, 'hex'))
 
+    t.plan(1)
     t.same(actual, f.string)
-    t.end()
   })
 })
 
@@ -23,8 +23,8 @@ fixtures.valid.forEach(function (f) {
     var base = bases[f.alphabet]
     var actual = base.decode(f.string).toString('hex')
 
+    t.plan(1)
     t.same(actual, f.hex)
-    t.end()
   })
 })
 
@@ -32,27 +32,26 @@ fixtures.invalid.forEach(function (f) {
   tape.test('decode throws on ' + f.description, function (t) {
     var base = bases[f.alphabet]
 
+    t.plan(1)
     t.throws(function () {
       if (!base) base = basex(f.alphabet)
 
       base.decode(f.string)
     }, new RegExp(f.exception))
-    t.end()
   })
 })
 
 tape.test('decode should return Buffer', function (t) {
+  t.plan(2)
   t.true(Buffer.isBuffer(bases.base2.decode('')))
   t.true(Buffer.isBuffer(bases.base2.decode('01')))
-
-  t.end()
 })
 
 tape.test('encode throws on string', function (t) {
   var base = bases.base58
 
+  t.plan(1)
   t.throws(function () {
     base.encode('a')
   }, new RegExp('^TypeError: Expected Buffer$'))
-  t.end()
 })
