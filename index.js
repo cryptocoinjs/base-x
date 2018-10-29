@@ -79,9 +79,7 @@ module.exports = function base (ALPHABET) {
     let psz = 0
 
     // Skip leading spaces.
-    while (source[psz] && source[psz] === ' ') {
-      psz++
-    }
+    if (source[psz] === ' ') return
 
     // Skip and count leading '1's.
     let zeroes = 0
@@ -96,7 +94,7 @@ module.exports = function base (ALPHABET) {
     const b256 = new Uint8Array(size)
 
     // Process the characters.
-    while (source[psz] && source[psz] !== ' ') {
+    while (source[psz]) {
       // Decode character
       let carry = BASE_MAP[source.charCodeAt(psz)]
 
@@ -116,11 +114,7 @@ module.exports = function base (ALPHABET) {
     }
 
     // Skip trailing spaces.
-    while (source[psz] === ' ') {
-      psz++
-    }
-
-    if (source[psz] !== 0) return
+    if (source[psz] === ' ') return
 
     // Skip leading zeroes in b256.
     let it = size - length
