@@ -16,6 +16,7 @@ module.exports = function base (ALPHABET) {
     const x = ALPHABET.charAt(i)
     const xc = x.charCodeAt(0)
 
+    if (BASE_MAP[xc] !== 255) throw new TypeError(x + ' is ambiguous')
     BASE_MAP[xc] = i
   }
 
