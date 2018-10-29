@@ -123,11 +123,9 @@ module.exports = function base (ALPHABET) {
     }
 
     const vch = Buffer.allocUnsafe(zeroes + (size - it))
-    let j = 0
-    for (; j < zeroes; ++j) {
-      vch[j] = 0x00
-    }
+    vch.fill(0x00, 0, zeroes)
 
+    let j = zeroes
     while (it !== size) {
       vch[j++] = b256[it++]
     }
