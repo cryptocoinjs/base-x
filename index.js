@@ -27,6 +27,7 @@ module.exports = function base (ALPHABET) {
 
   function encode (source) {
     if (!Buffer.isBuffer(source)) throw new TypeError('Expected Buffer')
+    if (source.length === 0) return ''
 
     // Skip & count leading zeroes.
     let zeroes = 0
@@ -75,6 +76,7 @@ module.exports = function base (ALPHABET) {
 
   function decodeUnsafe (source) {
     if (typeof source !== 'string') throw new TypeError('Expected String')
+    if (source.length === 0) return Buffer.alloc(0)
 
     let psz = 0
 
