@@ -60,21 +60,6 @@ While unusual, this does mean that no padding is required and it works for bases
 like 43. **If you need standard hex encoding, or base64 encoding, this module is NOT
 appropriate.**
 
-The algorithm used to convert the base of the number is roughly this:
-
-```python
-significant =  12345
-base = 16
-digits = []
-while significant > base:
-  significant, remainder = divmod(significant, base)
-  digits.append(remainder)
-digits.append(significant)
-assert list(reversed(digits)) == [3,0,3,9]
-assert hex(12345) == '0x3039'
-```
-
-Of course the input is actually an array of digits already :)
 
 ## LICENSE [MIT](LICENSE)
 A direct derivation of the base58 implementation from [`bitcoin/bitcoin`](https://github.com/bitcoin/bitcoin/blob/f1e2f2a85962c1664e4e55471061af0eaa798d40/src/base58.cpp),  generalized for variable length alphabets.
