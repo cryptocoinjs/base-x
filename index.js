@@ -4,7 +4,7 @@
 // Distributed under the MIT software license, see the accompanying
 // file LICENSE or http://www.opensource.org/licenses/mit-license.php.
 
-var Buffer = require('safe-buffer').Buffer
+const Buffer = require('safe-buffer').Buffer
 
 module.exports = function base (ALPHABET) {
   if (ALPHABET.length >= 255) throw new TypeError('Alphabet too long')
@@ -123,7 +123,7 @@ module.exports = function base (ALPHABET) {
       it++
     }
 
-    let vch = Buffer.allocUnsafe(zeroes + (size - it))
+    const vch = Buffer.allocUnsafe(zeroes + (size - it))
     let j = 0
     for (; j < zeroes; ++j) {
       vch[j] = 0x00
@@ -137,7 +137,7 @@ module.exports = function base (ALPHABET) {
   }
 
   function decode (string) {
-    var buffer = decodeUnsafe(string)
+    const buffer = decodeUnsafe(string)
     if (buffer) return buffer
 
     throw new Error('Non-base' + BASE + ' character')
