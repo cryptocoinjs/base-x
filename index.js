@@ -67,8 +67,7 @@ module.exports = function base (ALPHABET) {
     }
 
     // Translate the result into a string.
-    let str = ''
-    for (let j = 0; j < zeroes; ++j) str += LEADER
+    let str = LEADER.repeat(zeroes)
     for (; it < size; ++it) str += ALPHABET.charAt(b58[it])
 
     return str
