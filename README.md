@@ -8,6 +8,8 @@
 Fast base encoding / decoding of any given alphabet using bitcoin style leading
 zero compression.
 
+**WARNING:** This module is **NOT RFC3548** compliant,  it cannot be used for base16 (hex), base32, or base64 encoding in a standards compliant manner. 
+
 ## Example
 
 Base58
@@ -36,6 +38,7 @@ Base | Alphabet
 11 | `0123456789a`
 16 | `0123456789abcdef`
 32 | `0123456789ABCDEFGHJKMNPQRSTVWXYZ`
+32 | `ybndrfg8ejkmcpqxot1uwisza345h769` (z-base-32)
 36 | `0123456789abcdefghijklmnopqrstuvwxyz`
 58 | `123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz`
 62 | `0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ`
@@ -57,8 +60,7 @@ to 4 bytes unlike a canonical hex encoding which uniformly packs 4 bits into eac
 character.
 
 While unusual, this does mean that no padding is required and it works for bases
-like 43. **If you need standard hex encoding, or base64 encoding, this module is NOT
-appropriate.**
+like 43. 
 
 
 ## LICENSE [MIT](LICENSE)
