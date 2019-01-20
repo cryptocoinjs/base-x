@@ -9,7 +9,10 @@ const Buffer = require('safe-buffer').Buffer
 module.exports = function base (ALPHABET) {
   if (ALPHABET.length >= 255) throw new TypeError('Alphabet too long')
 
-  const BASE_MAP = new Uint8Array(256); for (let i = 0; i < 256; i++) { BASE_MAP[i] = 255; }
+  const BASE_MAP = new Uint8Array(256);
+  for (let i = 0; i < 256; i++) {
+    BASE_MAP[i] = 256;
+  }
 
   for (let i = 0; i < ALPHABET.length; i++) {
     const x = ALPHABET.charAt(i)
