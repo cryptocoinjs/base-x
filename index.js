@@ -11,7 +11,7 @@ module.exports = function base (ALPHABET) {
 
   const BASE_MAP = new Uint8Array(256)
   for (let i = 0; i < 256; i++) {
-    BASE_MAP[i] = 256
+    BASE_MAP[i] = 255
   }
 
   for (let i = 0; i < ALPHABET.length; i++) {
