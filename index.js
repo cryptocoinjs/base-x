@@ -4,36 +4,36 @@
 // Distributed under the MIT software license, see the accompanying
 // file LICENSE or http://www.opensource.org/licenses/mit-license.php.
 
-const Buffer = require('safe-buffer').Buffer
+var Buffer = require('safe-buffer').Buffer
 
 module.exports = function base (ALPHABET) {
   if (ALPHABET.length >= 255) throw new TypeError('Alphabet too long')
 
-  const BASE_MAP = new Uint8Array(256)
+  var BASE_MAP = new Uint8Array(256)
   BASE_MAP.fill(255)
 
-  for (let i = 0; i < ALPHABET.length; i++) {
-    const x = ALPHABET.charAt(i)
-    const xc = x.charCodeAt(0)
+  for (var i = 0; i < ALPHABET.length; i++) {
+    var x = ALPHABET.charAt(i)
+    var xc = x.charCodeAt(0)
 
     if (BASE_MAP[xc] !== 255) throw new TypeError(x + ' is ambiguous')
     BASE_MAP[xc] = i
   }
 
-  const BASE = ALPHABET.length
-  const LEADER = ALPHABET.charAt(0)
-  const FACTOR = Math.log(BASE) / Math.log(256) // log(BASE) / log(256), rounded up
-  const iFACTOR = Math.log(256) / Math.log(BASE) // log(256) / log(BASE), rounded up
+  var BASE = ALPHABET.length
+  var LEADER = ALPHABET.charAt(0)
+  var FACTOR = Math.log(BASE) / Math.log(256) // log(BASE) / log(256), rounded up
+  var iFACTOR = Math.log(256) / Math.log(BASE) // log(256) / log(BASE), rounded up
 
   function encode (source) {
     if (!Buffer.isBuffer(source)) throw new TypeError('Expected Buffer')
     if (source.length === 0) return ''
 
     // Skip & count leading zeroes.
-    let zeroes = 0
-    let length = 0
-    let pbegin = 0
-    const pend = source.length
+    var zeroes = 0
+    var length = 0
+    var pbegin = 0
+    var pend = source.length
 
     while (pbegin !== pend && source[pbegin] === 0) {
       pbegin++
@@ -41,16 +41,16 @@ module.exports = function base (ALPHABET) {
     }
 
     // Allocate enough space in big-endian base58 representation.
-    const size = ((pend - pbegin) * iFACTOR + 1) >>> 0
-    const b58 = new Uint8Array(size)
+    var size = ((pend - pbegin) * iFACTOR + 1) >>> 0
+    var b58 = new Uint8Array(size)
 
     // Process the bytes.
     while (pbegin !== pend) {
-      let carry = source[pbegin]
+      var carry = source[pbegin]
 
       // Apply "b58 = b58 * 256 + ch".
-      let i = 0
-      for (let it = size - 1; (carry !== 0 || i < length) && (it !== -1); it--, i++) {
+      var i = 0
+      for (var it = size - 1; (carry !== 0 || i < length) && (it !== -1); it--, i++) {
         carry += (256 * b58[it]) >>> 0
         b58[it] = (carry % BASE) >>> 0
         carry = (carry / BASE) >>> 0
@@ -62,13 +62,13 @@ module.exports = function base (ALPHABET) {
     }
 
     // Skip leading zeroes in base58 result.
-    let it = size - length
+    var it = size - length
     while (it !== size && b58[it] === 0) {
       it++
     }
 
     // Translate the result into a string.
-    let str = LEADER.repeat(zeroes)
+    var str = LEADER.repeat(zeroes)
     for (; it < size; ++it) str += ALPHABET.charAt(b58[it])
 
     return str
@@ -78,33 +78,33 @@ module.exports = function base (ALPHABET) {
     if (typeof source !== 'string') throw new TypeError('Expected String')
     if (source.length === 0) return Buffer.alloc(0)
 
-    let psz = 0
+    var psz = 0
 
     // Skip leading spaces.
     if (source[psz] === ' ') return
 
     // Skip and count leading '1's.
-    let zeroes = 0
-    let length = 0
+    var zeroes = 0
+    var length = 0
     while (source[psz] === LEADER) {
       zeroes++
       psz++
     }
 
     // Allocate enough space in big-endian base256 representation.
-    const size = (((source.length - psz) * FACTOR) + 1) >>> 0 // log(58) / log(256), rounded up.
-    const b256 = new Uint8Array(size)
+    var size = (((source.length - psz) * FACTOR) + 1) >>> 0 // log(58) / log(256), rounded up.
+    var b256 = new Uint8Array(size)
 
     // Process the characters.
     while (source[psz]) {
       // Decode character
-      let carry = BASE_MAP[source.charCodeAt(psz)]
+      var carry = BASE_MAP[source.charCodeAt(psz)]
 
       // Invalid character
       if (carry === 255) return
 
-      let i = 0
-      for (let it = size - 1; (carry !== 0 || i < length) && (it !== -1); it--, i++) {
+      var i = 0
+      for (var it = size - 1; (carry !== 0 || i < length) && (it !== -1); it--, i++) {
         carry += (BASE * b256[it]) >>> 0
         b256[it] = (carry % 256) >>> 0
         carry = (carry / 256) >>> 0
@@ -119,15 +119,15 @@ module.exports = function base (ALPHABET) {
     if (source[psz] === ' ') return
 
     // Skip leading zeroes in b256.
-    let it = size - length
+    var it = size - length
     while (it !== size && b256[it] === 0) {
       it++
     }
 
-    const vch = Buffer.allocUnsafe(zeroes + (size - it))
+    var vch = Buffer.allocUnsafe(zeroes + (size - it))
     vch.fill(0x00, 0, zeroes)
 
-    let j = zeroes
+    var j = zeroes
     while (it !== size) {
       vch[j++] = b256[it++]
     }
@@ -136,7 +136,7 @@ module.exports = function base (ALPHABET) {
   }
 
   function decode (string) {
-    const buffer = decodeUnsafe(string)
+    var buffer = decodeUnsafe(string)
     if (buffer) return buffer
 
     throw new Error('Non-base' + BASE + ' character')
