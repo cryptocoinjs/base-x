@@ -4,9 +4,10 @@
 // Distributed under the MIT software license, see the accompanying
 // file LICENSE or http://www.opensource.org/licenses/mit-license.php.
 
-const Buffer = require('safe-buffer').Buffer
+// @ts-ignore
+const _Buffer = require('safe-buffer').Buffer;
 
-module.exports = function base (ALPHABET) {
+function base (ALPHABET: string) {
   if (ALPHABET.length >= 255) throw new TypeError('Alphabet too long')
 
   const BASE_MAP = new Uint8Array(256)
@@ -25,8 +26,8 @@ module.exports = function base (ALPHABET) {
   const FACTOR = Math.log(BASE) / Math.log(256) // log(BASE) / log(256), rounded up
   const iFACTOR = Math.log(256) / Math.log(BASE) // log(256) / log(BASE), rounded up
 
-  function encode (source) {
-    if (!Buffer.isBuffer(source)) throw new TypeError('Expected Buffer')
+  function encode (source: Buffer) {
+    if (!_Buffer.isBuffer(source)) throw new TypeError('Expected Buffer')
     if (source.length === 0) return ''
 
     // Skip & count leading zeroes.
@@ -50,9 +51,9 @@ module.exports = function base (ALPHABET) {
 
       // Apply "b58 = b58 * 256 + ch".
       let i = 0
-      for (let it = size - 1; (carry !== 0 || i < length) && (it !== -1); it--, i++) {
-        carry += (256 * b58[it]) >>> 0
-        b58[it] = (carry % BASE) >>> 0
+      for (let it1 = size - 1; (carry !== 0 || i < length) && (it1 !== -1); it1--, i++) {
+        carry += (256 * b58[it1]) >>> 0
+        b58[it1] = (carry % BASE) >>> 0
         carry = (carry / BASE) >>> 0
       }
 
@@ -62,21 +63,21 @@ module.exports = function base (ALPHABET) {
     }
 
     // Skip leading zeroes in base58 result.
-    let it = size - length
-    while (it !== size && b58[it] === 0) {
-      it++
+    let it2 = size - length
+    while (it2 !== size && b58[it2] === 0) {
+      it2++
     }
 
     // Translate the result into a string.
     let str = LEADER.repeat(zeroes)
-    for (; it < size; ++it) str += ALPHABET.charAt(b58[it])
+    for (; it2 < size; ++it2) str += ALPHABET.charAt(b58[it2])
 
     return str
   }
 
-  function decodeUnsafe (source) {
+  function decodeUnsafe (source: string): Buffer | undefined {
     if (typeof source !== 'string') throw new TypeError('Expected String')
-    if (source.length === 0) return Buffer.alloc(0)
+    if (source.length === 0) return _Buffer.alloc(0)
 
     let psz = 0
 
@@ -104,9 +105,9 @@ module.exports = function base (ALPHABET) {
       if (carry === 255) return
 
       let i = 0
-      for (let it = size - 1; (carry !== 0 || i < length) && (it !== -1); it--, i++) {
-        carry += (BASE * b256[it]) >>> 0
-        b256[it] = (carry % 256) >>> 0
+      for (let it3 = size - 1; (carry !== 0 || i < length) && (it3 !== -1); it3--, i++) {
+        carry += (BASE * b256[it3]) >>> 0
+        b256[it3] = (carry % 256) >>> 0
         carry = (carry / 256) >>> 0
       }
 
@@ -119,23 +120,23 @@ module.exports = function base (ALPHABET) {
     if (source[psz] === ' ') return
 
     // Skip leading zeroes in b256.
-    let it = size - length
-    while (it !== size && b256[it] === 0) {
-      it++
+    let it4 = size - length
+    while (it4 !== size && b256[it4] === 0) {
+      it4++
     }
 
-    const vch = Buffer.allocUnsafe(zeroes + (size - it))
+    const vch = _Buffer.allocUnsafe(zeroes + (size - it4))
     vch.fill(0x00, 0, zeroes)
 
     let j = zeroes
-    while (it !== size) {
-      vch[j++] = b256[it++]
+    while (it4 !== size) {
+      vch[j++] = b256[it4++]
     }
 
     return vch
   }
 
-  function decode (string) {
+  function decode (string: string): Buffer {
     const buffer = decodeUnsafe(string)
     if (buffer) return buffer
 
@@ -148,3 +149,5 @@ module.exports = function base (ALPHABET) {
     decode: decode
   }
 }
+
+export = base;

@@ -1,6 +1,6 @@
 {
   "name": "base-x",
-  "version": "3.0.5",
+  "version": "3.0.6",
   "description": "Fast base encoding / decoding of any given alphabet",
   "keywords": [
     "base-x",
@@ -21,21 +21,27 @@
   "license": "MIT",
   "author": "Daniel Cousens",
   "files": [
-    "index.js"
+    "src"
   ],
-  "main": "index.js",
+  "main": "src/index.js",
+  "types": "src/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/cryptocoinjs/base-x.git"
   },
   "scripts": {
+    "build": "tsc -p ./tsconfig.json ; standard --fix",
+    "gitdiff": "npm run build && git diff --exit-code",
+    "prepublish": "npm run gitdiff",
     "standard": "standard",
     "test": "npm run unit && npm run standard",
     "unit": "tape test/*.js"
   },
   "devDependencies": {
+    "@types/node": "12.0.10",
     "standard": "^10.0.3",
-    "tape": "^4.5.1"
+    "tape": "^4.5.1",
+    "typescript": "3.5.2"
   },
   "dependencies": {
     "safe-buffer": "^5.0.1"
