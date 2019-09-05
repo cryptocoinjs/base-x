@@ -1,7 +1,10 @@
 /// <reference types="node" />
-declare function base(ALPHABET: string): {
-    encode: (source: Buffer) => string;
-    decodeUnsafe: (source: string) => Buffer | undefined;
-    decode: (string: string) => Buffer;
-};
+declare function base(ALPHABET: string): base.BaseConverter;
 export = base;
+declare namespace base {
+    interface BaseConverter {
+        encode(buffer: Buffer): string;
+        decodeUnsafe(string: string): Buffer | undefined;
+        decode(string: string): Buffer;
+    }
+}

@@ -7,7 +7,7 @@
 // @ts-ignore
 const _Buffer = require('safe-buffer').Buffer;
 
-function base (ALPHABET: string) {
+function base (ALPHABET: string): base.BaseConverter {
   if (ALPHABET.length >= 255) throw new TypeError('Alphabet too long')
 
   const BASE_MAP = new Uint8Array(256)
@@ -26,7 +26,7 @@ function base (ALPHABET: string) {
   const FACTOR = Math.log(BASE) / Math.log(256) // log(BASE) / log(256), rounded up
   const iFACTOR = Math.log(256) / Math.log(BASE) // log(256) / log(BASE), rounded up
 
-  function encode (source: Buffer) {
+  function encode (source: Buffer): string {
     if (!_Buffer.isBuffer(source)) throw new TypeError('Expected Buffer')
     if (source.length === 0) return ''
 
@@ -151,3 +151,11 @@ function base (ALPHABET: string) {
 }
 
 export = base;
+
+declare namespace base {
+    interface BaseConverter {
+        encode(buffer: Buffer): string;
+        decodeUnsafe(string: string): Buffer | undefined;
+        decode(string: string): Buffer;
+    }
+}
