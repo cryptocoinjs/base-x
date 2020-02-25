@@ -23,6 +23,7 @@ function base (ALPHABET) {
   var FACTOR = Math.log(BASE) / Math.log(256) // log(BASE) / log(256), rounded up
   var iFACTOR = Math.log(256) / Math.log(BASE) // log(256) / log(BASE), rounded up
   function encode (source) {
+    if (Array.isArray(source) || source instanceof Uint8Array) { source = _Buffer.from(source) }
     if (!_Buffer.isBuffer(source)) { throw new TypeError('Expected Buffer') }
     if (source.length === 0) { return '' }
         // Skip & count leading zeroes.

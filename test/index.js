@@ -55,3 +55,11 @@ tape.test('encode throws on string', function (t) {
     base.encode('a')
   }, new RegExp('^TypeError: Expected Buffer$'))
 })
+
+tape.test('encode not throw on Array or Uint8Array', function (t) {
+  var base = bases.base58
+
+  t.plan(2)
+  t.same(base.encode([42, 12, 34]), 'F89f')
+  t.same(base.encode(new Uint8Array([42, 12, 34])), 'F89f')
+})
