@@ -28,7 +28,7 @@ function base (ALPHABET: string): base.BaseConverter {
   const FACTOR = Math.log(BASE) / Math.log(256) // log(BASE) / log(256), rounded up
   const iFACTOR = Math.log(256) / Math.log(BASE) // log(256) / log(BASE), rounded up
 
-  function encode (source: ArrayLike<number>): string {
+  function encode (source: Buffer | number[] | Uint8Array): string {
     if (Array.isArray(source) || source instanceof Uint8Array) source = _Buffer.from(source)
     if (!_Buffer.isBuffer(source)) throw new TypeError('Expected Buffer')
     if (source.length === 0) return ''
@@ -157,7 +157,7 @@ export = base;
 
 declare namespace base {
     interface BaseConverter {
-        encode(buffer: ArrayLike<number>): string;
+        encode(buffer: Buffer | number[] | Uint8Array): string;
         decodeUnsafe(string: string): Buffer | undefined;
         decode(string: string): Buffer;
     }
