@@ -53,7 +53,7 @@ tape.test('encode throws on string', function (t) {
   t.plan(1)
   t.throws(function () {
     base.encode('a')
-  }, new RegExp('^TypeError: Expected Buffer$'))
+  }, new RegExp('^TypeError: Expected Uint8Array$'))
 })
 
 tape.test('encode not throw on Array or Uint8Array', function (t) {

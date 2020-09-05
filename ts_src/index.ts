@@ -28,9 +28,11 @@ function base (ALPHABET: string): base.BaseConverter {
   const FACTOR = Math.log(BASE) / Math.log(256) // log(BASE) / log(256), rounded up
   const iFACTOR = Math.log(256) / Math.log(BASE) // log(256) / log(BASE), rounded up
 
-  function encode (source: Buffer | number[] | Uint8Array): string {
-    if (Array.isArray(source) || source instanceof Uint8Array) source = _Buffer.from(source)
-    if (!_Buffer.isBuffer(source)) throw new TypeError('Expected Buffer')
+  function encode (source: Uint8Array | number[]): string {
+    // Just to avoid instanceof twice
+    if (source instanceof Uint8Array) void 0
+    else if (Array.isArray(source)) source = Uint8Array.from(source)
+    else throw new TypeError('Expected Uint8Array')
     if (source.length === 0) return ''
 
     // Skip & count leading zeroes.
@@ -157,7 +159,7 @@ export = base;
 
 declare namespace base {
     interface BaseConverter {
-        encode(buffer: Buffer | number[] | Uint8Array): string;
+        encode(bytes: Uint8Array | number[]): string;
         decodeUnsafe(string: string): Buffer | undefined;
         decode(string: string): Buffer;
     }
