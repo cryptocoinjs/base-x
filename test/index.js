@@ -1,8 +1,22 @@
 var basex = require('../')
 var tape = require('tape')
 var fixtures = require('./fixtures.json')
-var uint8ArrayFromString = require('uint8arrays/from-string')
-var uint8ArrayToString = require('uint8arrays/to-string')
+
+const uint8ArrayToHexString = (uint8) => {
+  return Array.from(uint8).reduce((acc, curr) => `${acc}${curr.toString(16).padStart(2, '0')}`, '')
+}
+
+const uint8ArrayFromHexString = (string) => {
+  if (!string.length) {
+    return new Uint8Array(0)
+  }
+
+  if (string.length % 2 !== 0) {
+    throw new Error('Invalid hex string')
+  }
+
+  return new Uint8Array(string.match(/.{1,2}/g).map(byte => parseInt(byte, 16)))
+}
 
 var bases = Object.keys(fixtures.alphabets).reduce(function (bases, alphabetName) {
   bases[alphabetName] = basex(fixtures.alphabets[alphabetName])
@@ -12,7 +26,7 @@ var bases = Object.keys(fixtures.alphabets).reduce(function (bases, alphabetName
 fixtures.valid.forEach(function (f) {
   tape.test('can encode ' + f.alphabet + ': ' + f.hex, function (t) {
     var base = bases[f.alphabet]
-    var actual = base.encode(uint8ArrayFromString(f.hex, 'base16'))
+    var actual = base.encode(uint8ArrayFromHexString(f.hex))
 
     t.plan(1)
     t.same(actual, f.string)
@@ -22,7 +36,7 @@ fixtures.valid.forEach(function (f) {
 fixtures.valid.forEach(function (f) {
   tape.test('can decode ' + f.alphabet + ': ' + f.string, function (t) {
     var base = bases[f.alphabet]
-    var actual = uint8ArrayToString(base.decode(f.string), 'base16')
+    var actual = uint8ArrayToHexString(base.decode(f.string))
 
     t.plan(1)
     t.same(actual, f.hex)
