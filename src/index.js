@@ -22,7 +22,6 @@ function base (ALPHABET) {
   var iFACTOR = Math.log(256) / Math.log(BASE) // log(256) / log(BASE), rounded up
   function encode (source) {
     if (source instanceof Uint8Array) {
-
     } else if (ArrayBuffer.isView(source)) {
       source = new Uint8Array(source.buffer, source.byteOffset, source.byteLength)
     } else if (Array.isArray(source)) {

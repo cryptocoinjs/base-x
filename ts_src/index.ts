@@ -26,7 +26,12 @@ function base (ALPHABET: string): base.BaseConverter {
   const iFACTOR = Math.log(256) / Math.log(BASE) // log(256) / log(BASE), rounded up
 
   function encode (source: Uint8Array | number[]): string {
-    if (Array.isArray(source)) source = Uint8Array.from(source)
+    if (source instanceof Uint8Array) {
+    } else if (ArrayBuffer.isView(source)) {
+      source = new Uint8Array(source.buffer, source.byteOffset, source.byteLength)
+    } else if (Array.isArray(source)) {
+      source = Uint8Array.from(source)
+    }
     if (!(source instanceof Uint8Array)) throw new TypeError('Expected Uint8Array')
     if (source.length === 0) return ''
 
