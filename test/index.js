@@ -1,7 +1,22 @@
-var Buffer = require('safe-buffer').Buffer
 var basex = require('../')
 var tape = require('tape')
 var fixtures = require('./fixtures.json')
+
+const uint8ArrayToHexString = (uint8) => {
+  return Array.from(uint8).reduce((acc, curr) => `${acc}${curr.toString(16).padStart(2, '0')}`, '')
+}
+
+const uint8ArrayFromHexString = (string) => {
+  if (!string.length) {
+    return new Uint8Array(0)
+  }
+
+  if (string.length % 2 !== 0) {
+    throw new Error('Invalid hex string')
+  }
+
+  return new Uint8Array(string.match(/.{1,2}/g).map(byte => parseInt(byte, 16)))
+}
 
 var bases = Object.keys(fixtures.alphabets).reduce(function (bases, alphabetName) {
   bases[alphabetName] = basex(fixtures.alphabets[alphabetName])
@@ -11,7 +26,7 @@ var bases = Object.keys(fixtures.alphabets).reduce(function (bases, alphabetName
 fixtures.valid.forEach(function (f) {
   tape.test('can encode ' + f.alphabet + ': ' + f.hex, function (t) {
     var base = bases[f.alphabet]
-    var actual = base.encode(Buffer.from(f.hex, 'hex'))
+    var actual = base.encode(uint8ArrayFromHexString(f.hex))
 
     t.plan(1)
     t.same(actual, f.string)
@@ -21,7 +36,7 @@ fixtures.valid.forEach(function (f) {
 fixtures.valid.forEach(function (f) {
   tape.test('can decode ' + f.alphabet + ': ' + f.string, function (t) {
     var base = bases[f.alphabet]
-    var actual = base.decode(f.string).toString('hex')
+    var actual = uint8ArrayToHexString(base.decode(f.string))
 
     t.plan(1)
     t.same(actual, f.hex)
@@ -41,10 +56,10 @@ fixtures.invalid.forEach(function (f) {
   })
 })
 
-tape.test('decode should return Buffer', function (t) {
+tape.test('decode should return Uint8Array', function (t) {
   t.plan(2)
-  t.true(Buffer.isBuffer(bases.base2.decode('')))
-  t.true(Buffer.isBuffer(bases.base2.decode('01')))
+  t.true(bases.base2.decode('') instanceof Uint8Array)
+  t.true(bases.base2.decode('01') instanceof Uint8Array)
 })
 
 tape.test('encode throws on string', function (t) {
@@ -53,7 +68,7 @@ tape.test('encode throws on string', function (t) {
   t.plan(1)
   t.throws(function () {
     base.encode('a')
-  }, new RegExp('^TypeError: Expected Buffer$'))
+  }, new RegExp('^TypeError: Expected Uint8Array$'))
 })
 
 tape.test('encode not throw on Array or Uint8Array', function (t) {

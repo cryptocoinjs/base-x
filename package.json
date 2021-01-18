@@ -42,8 +42,5 @@
     "standard": "^10.0.3",
     "tape": "^4.5.1",
     "typescript": "3.5.2"
-  },
-  "dependencies": {
-    "safe-buffer": "^5.0.1"
   }
 }
