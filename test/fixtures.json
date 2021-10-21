@@ -2,6 +2,7 @@
   "alphabets": {
     "base2": "01",
     "base16": "0123456789abcdef",
+    "base45": "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:",
     "base58": "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
   },
   "valid": [
@@ -545,6 +546,71 @@
       "alphabet": "base58",
       "hex": "6d691bdd736346aa5a0a95b373b2ab",
       "string": "44Y6qTgSvRMkdqpQ5ufkN"
+    },
+    {
+      "alphabet": "base45",
+      "hex": "d71c91867aa08cc96b361f29",
+      "string": "5AKG9ZNTTK/JJP2/$D"
+    },
+    {
+      "alphabet": "base45",
+      "hex": "e70558f0d75915b457b3e356",
+      "string": "5R%/+F5SZ6LLW+J60D"
+    },
+    {
+      "alphabet": "base45",
+      "hex": "821b8ac934dca0a7627683b7",
+      "string": "37ILC1NGCLFRNPB2QK"
+    },
+    {
+      "alphabet": "base45",
+      "hex": "925e5d9120eb85e3f47de98c",
+      "string": "3P9IPF01 DWZ5TA/$W"
+    },
+    {
+      "alphabet": "base45",
+      "hex": "55543281883fa0e4b67ebfb4",
+      "string": "23H+2M%XIGQ32UJ/YO"
+    },
+    {
+      "alphabet": "base45",
+      "hex": "d419c3781964d6873931178c",
+      "string": "5772LW:CX0%LBPD.OZ"
+    },
+    {
+      "alphabet": "base45",
+      "hex": "c6d10718e79b1171fb71af6f",
+      "string": "4$RXK2XNP WOWGL0 E"
+    },
+    {
+      "alphabet": "base45",
+      "hex": "f67db5bed2d32445f7da2c44",
+      "string": "5:Z/BRXGU-0NV3G3TU"
+    },
+    {
+      "alphabet": "base45",
+      "hex": "7496e6d6346165fd2deb88ec",
+      "string": "2$RSPPBNCP5-RE3S*K"
+    },
+    {
+      "alphabet": "base45",
+      "hex": "df10b11c5f90c825285c72f9",
+      "string": "5J75BHERI1$04F/LS5"
+    },
+    {
+      "alphabet": "base45",
+      "hex": "2174a83619bb46aacca7beec",
+      "string": " R%/+F5SZ6LLW+J60"
+    },
+    {
+      "alphabet": "base45",
+      "hex": "05e9b0213ba6e5e9fc62aa2906",
+      "string": "   /+F5SZ6LLW+    "
+    },
+    {
+      "alphabet": "base45",
+      "hex": "7496e6d6346165fd2debc7bd",
+      "string": "2$RSPPBNCP5-RE3   "
     }
   ],
   "invalid": [
@@ -574,13 +640,13 @@
     },
     {
       "alphabet": "base58",
-      "description": "leading whitespace",
+      "description": "leading whitespace is not base58 character",
       "exception": "^Error: Non-base58 character$",
       "string": " 1111111111"
     },
     {
       "alphabet": "base58",
-      "description": "trailing whitespace",
+      "description": "trailing whitespace is not base58 character",
       "exception": "^Error: Non-base58 character$",
       "string": "1111111111 "
     },

@@ -84,9 +84,6 @@ function base (ALPHABET: string): base.BaseConverter {
 
     let psz = 0
 
-    // Skip leading spaces.
-    if (source[psz] === ' ') return
-
     // Skip and count leading '1's.
     let zeroes = 0
     let length = 0
@@ -118,9 +115,6 @@ function base (ALPHABET: string): base.BaseConverter {
       length = i
       psz++
     }
-
-    // Skip trailing spaces.
-    if (source[psz] === ' ') return
 
     // Skip leading zeroes in b256.
     let it4 = size - length
