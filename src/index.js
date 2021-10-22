@@ -66,8 +66,6 @@ function base (ALPHABET) {
     if (typeof source !== 'string') { throw new TypeError('Expected String') }
     if (source.length === 0) { return _Buffer.alloc(0) }
     var psz = 0
-        // Skip leading spaces.
-    if (source[psz] === ' ') { return }
         // Skip and count leading '1's.
     var zeroes = 0
     var length = 0
@@ -94,8 +92,6 @@ function base (ALPHABET) {
       length = i
       psz++
     }
-        // Skip trailing spaces.
-    if (source[psz] === ' ') { return }
         // Skip leading zeroes in b256.
     var it4 = size - length
     while (it4 !== size && b256[it4] === 0) {
