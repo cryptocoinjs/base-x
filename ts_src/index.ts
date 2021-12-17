@@ -5,7 +5,7 @@
 // file LICENSE or http://www.opensource.org/licenses/mit-license.php.
 
 // @ts-ignore
-const _Buffer = require('safe-buffer').Buffer;
+const _Buffer = require('buffer/').Buffer;
 
 function base (ALPHABET: string): base.BaseConverter {
   if (ALPHABET.length >= 255) throw new TypeError('Alphabet too long')

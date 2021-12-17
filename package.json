@@ -44,6 +44,6 @@
     "typescript": "3.5.2"
   },
   "dependencies": {
-    "safe-buffer": "^5.0.1"
+    "buffer": "^6.0.3"
   }
 }
