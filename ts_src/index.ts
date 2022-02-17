@@ -4,9 +4,6 @@
 // Distributed under the MIT software license, see the accompanying
 // file LICENSE or http://www.opensource.org/licenses/mit-license.php.
 
-// @ts-ignore
-const _Buffer = require('safe-buffer').Buffer;
-
 function base (ALPHABET: string): base.BaseConverter {
   if (ALPHABET.length >= 255) throw new TypeError('Alphabet too long')
 
@@ -28,9 +25,14 @@ function base (ALPHABET: string): base.BaseConverter {
   const FACTOR = Math.log(BASE) / Math.log(256) // log(BASE) / log(256), rounded up
   const iFACTOR = Math.log(256) / Math.log(BASE) // log(256) / log(BASE), rounded up
 
-  function encode (source: Buffer | number[] | Uint8Array): string {
-    if (Array.isArray(source) || source instanceof Uint8Array) source = _Buffer.from(source)
-    if (!_Buffer.isBuffer(source)) throw new TypeError('Expected Buffer')
+  function encode (source: Uint8Array | number[]): string {
+    if (source instanceof Uint8Array) {
+    } else if (ArrayBuffer.isView(source)) {
+      source = new Uint8Array(source.buffer, source.byteOffset, source.byteLength)
+    } else if (Array.isArray(source)) {
+      source = Uint8Array.from(source)
+    }
+    if (!(source instanceof Uint8Array)) throw new TypeError('Expected Uint8Array')
     if (source.length === 0) return ''
 
     // Skip & count leading zeroes.
@@ -78,9 +80,9 @@ function base (ALPHABET: string): base.BaseConverter {
     return str
   }
 
-  function decodeUnsafe (source: string): Buffer | undefined {
+  function decodeUnsafe (source: string): Uint8Array | undefined {
     if (typeof source !== 'string') throw new TypeError('Expected String')
-    if (source.length === 0) return _Buffer.alloc(0)
+    if (source.length === 0) return new Uint8Array()
 
     let psz = 0
 
@@ -122,8 +124,7 @@ function base (ALPHABET: string): base.BaseConverter {
       it4++
     }
 
-    const vch = _Buffer.allocUnsafe(zeroes + (size - it4))
-    vch.fill(0x00, 0, zeroes)
+    const vch = new Uint8Array(zeroes + (size - it4))
 
     let j = zeroes
     while (it4 !== size) {
@@ -133,7 +134,7 @@ function base (ALPHABET: string): base.BaseConverter {
     return vch
   }
 
-  function decode (string: string): Buffer {
+  function decode (string: string): Uint8Array {
     const buffer = decodeUnsafe(string)
     if (buffer) return buffer
 
@@ -151,8 +152,8 @@ export = base;
 
 declare namespace base {
     interface BaseConverter {
-        encode(buffer: Buffer | number[] | Uint8Array): string;
-        decodeUnsafe(string: string): Buffer | undefined;
-        decode(string: string): Buffer;
+        encode(buffer: Uint8Array | number[]): string;
+        decodeUnsafe(string: string): Uint8Array | undefined;
+        decode(string: string): Uint8Array;
     }
 }

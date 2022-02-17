@@ -4,8 +4,6 @@
 // Copyright (c) 2014-2018 The Bitcoin Core developers (base58.cpp)
 // Distributed under the MIT software license, see the accompanying
 // file LICENSE or http://www.opensource.org/licenses/mit-license.php.
-// @ts-ignore
-var _Buffer = require('safe-buffer').Buffer
 function base (ALPHABET) {
   if (ALPHABET.length >= 255) { throw new TypeError('Alphabet too long') }
   var BASE_MAP = new Uint8Array(256)
@@ -23,8 +21,13 @@ function base (ALPHABET) {
   var FACTOR = Math.log(BASE) / Math.log(256) // log(BASE) / log(256), rounded up
   var iFACTOR = Math.log(256) / Math.log(BASE) // log(256) / log(BASE), rounded up
   function encode (source) {
-    if (Array.isArray(source) || source instanceof Uint8Array) { source = _Buffer.from(source) }
-    if (!_Buffer.isBuffer(source)) { throw new TypeError('Expected Buffer') }
+    if (source instanceof Uint8Array) {
+    } else if (ArrayBuffer.isView(source)) {
+      source = new Uint8Array(source.buffer, source.byteOffset, source.byteLength)
+    } else if (Array.isArray(source)) {
+      source = Uint8Array.from(source)
+    }
+    if (!(source instanceof Uint8Array)) { throw new TypeError('Expected Uint8Array') }
     if (source.length === 0) { return '' }
         // Skip & count leading zeroes.
     var zeroes = 0
@@ -64,7 +67,7 @@ function base (ALPHABET) {
   }
   function decodeUnsafe (source) {
     if (typeof source !== 'string') { throw new TypeError('Expected String') }
-    if (source.length === 0) { return _Buffer.alloc(0) }
+    if (source.length === 0) { return new Uint8Array() }
     var psz = 0
         // Skip and count leading '1's.
     var zeroes = 0
@@ -97,8 +100,7 @@ function base (ALPHABET) {
     while (it4 !== size && b256[it4] === 0) {
       it4++
     }
-    var vch = _Buffer.allocUnsafe(zeroes + (size - it4))
-    vch.fill(0x00, 0, zeroes)
+    var vch = new Uint8Array(zeroes + (size - it4))
     var j = zeroes
     while (it4 !== size) {
       vch[j++] = b256[it4++]
