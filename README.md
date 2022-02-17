@@ -21,7 +21,13 @@ var bs58 = require('base-x')(BASE58)
 var decoded = bs58.decode('5Kd3NBUAdUnhyzenEwVLy9pBKxSwXvE9FMPyR4UKZvpe6E3AgLr')
 
 console.log(decoded)
-// => <Buffer 80 ed db dc 11 68 f1 da ea db d3 e4 4c 1e 3f 8f 5a 28 4c 20 29 f7 8a d2 6a f9 85 83 a4 99 de 5b 19>
+// => Uint8Array(33) [
+//   128, 237, 219, 220,  17, 104, 241, 218,
+//   234, 219, 211, 228,  76,  30,  63, 143,
+//    90,  40,  76,  32,  41, 247, 138, 210,
+//   106, 249, 133, 131, 164, 153, 222,  91,
+//    25
+// ]
 
 console.log(bs58.encode(decoded))
 // => 5Kd3NBUAdUnhyzenEwVLy9pBKxSwXvE9FMPyR4UKZvpe6E3AgLr
