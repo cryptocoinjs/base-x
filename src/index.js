@@ -77,7 +77,7 @@ function base (ALPHABET) {
     var size = (((source.length - psz) * FACTOR) + 1) >>> 0 // log(58) / log(256), rounded up.
     var b256 = new Uint8Array(size)
         // Process the characters.
-    while (source[psz]) {
+    while (psz < source.length) {
             // Decode character
       var carry = BASE_MAP[source.charCodeAt(psz)]
             // Invalid character

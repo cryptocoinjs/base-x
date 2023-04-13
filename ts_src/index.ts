@@ -97,7 +97,7 @@ function base (ALPHABET: string): base.BaseConverter {
     const b256 = new Uint8Array(size)
 
     // Process the characters.
-    while (source[psz]) {
+    while (psz < source.length) {
       // Decode character
       let carry = BASE_MAP[source.charCodeAt(psz)]
 
