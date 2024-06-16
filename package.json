@@ -2,6 +2,7 @@
   "name": "base-x",
   "version": "4.0.0",
   "description": "Fast base encoding / decoding of any given alphabet",
+  "type": "module",
   "keywords": [
     "base-x",
     "base58",
@@ -23,24 +24,33 @@
   "files": [
     "src"
   ],
-  "main": "src/index.js",
-  "types": "src/index.d.ts",
+  "main": "src/cjs/index.cjs",
+  "module": "src/esm/index.js",
+  "types": "src/cjs/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./src/cjs/index.cjs",
+      "import": "./src/esm/index.js",
+      "types": "./src/cjs/index.d.ts"
+    }
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/cryptocoinjs/base-x.git"
   },
   "scripts": {
-    "build": "tsc -p ./tsconfig.json ; standard --fix",
+    "build": "tsc -p ./tsconfig.json && tsc -p ./tsconfig.cjs.json; standard --fix --ignore test",
+    "postbuild": "find src/cjs -type f -name \"*.js\" -exec bash -c 'mv \"$0\" \"${0%.js}.cjs\"' {} \\;",
     "gitdiff": "npm run build && git diff --exit-code",
     "prepublish": "npm run gitdiff",
     "standard": "standard",
-    "test": "npm run unit && npm run standard",
+    "test": "npm run unit && npm run standard -- --ignore test",
     "unit": "tape test/*.js"
   },
   "devDependencies": {
     "@types/node": "12.0.10",
-    "standard": "^10.0.3",
-    "tape": "^4.5.1",
-    "typescript": "3.5.2"
+    "standard": "^17.1.0",
+    "tape": "^5.3.0",
+    "typescript": "^5.4.5"
   }
 }

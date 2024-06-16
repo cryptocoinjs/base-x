@@ -1,16 +1,19 @@
 'use strict'
-var crypto = require('crypto')
-var benchmark = require('benchmark')
-var XorShift128Plus = require('xorshift.js').XorShift128Plus
+const crypto = require('crypto')
+const benchmark = require('benchmark')
+const XorShift128Plus = require('xorshift.js').XorShift128Plus
 
-var bs58ALPHABET = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'
-var bs58 = require('../')(bs58ALPHABET)
+const bs58ALPHABET = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'
+const basex = require('../src/cjs/index.cjs').default
+const bs58 = basex(bs58ALPHABET)
 
-var fixtureIndex = 0
-var resetFixtureIndex = function () { fixtureIndex = 0 }
-var fixtures = new Array(10000)
-var getNextFixture = function () {
-  var fixture = fixtures[fixtureIndex++]
+// const bs58 = basex(bs58ALPHABET)
+
+let fixtureIndex = 0
+const resetFixtureIndex = function () { fixtureIndex = 0 }
+const fixtures = new Array(10000)
+const getNextFixture = function () {
+  const fixture = fixtures[fixtureIndex++]
   if (fixtureIndex === fixtures.length) {
     fixtureIndex = 0
   }
@@ -18,11 +21,11 @@ var getNextFixture = function () {
   return fixture
 }
 
-var seed = process.env.SEED || crypto.randomBytes(16).toString('hex')
+const seed = process.env.SEED || crypto.randomBytes(16).toString('hex')
 console.log('Seed: ' + seed)
-var prng = new XorShift128Plus(seed)
-for (var i = 0; i < fixtures.length; ++i) {
-  let source = prng.randomBytes(32)
+const prng = new XorShift128Plus(seed)
+for (let i = 0; i < fixtures.length; ++i) {
+  const source = prng.randomBytes(32)
   fixtures[i] = { source, string: bs58.encode(source) }
 }
 
@@ -49,12 +52,12 @@ new benchmark.Suite({
     console.log('==================================================')
   }
 })
-.add('encode', function () {
-  var fixture = getNextFixture()
-  bs58.encode(fixture.source)
-}, {onStart: resetFixtureIndex, onCycle: resetFixtureIndex})
-.add('decode', function () {
-  var fixture = getNextFixture()
-  bs58.decode(fixture.string)
-}, {onStart: resetFixtureIndex, onCycle: resetFixtureIndex})
-.run()
+  .add('encode', function () {
+    const fixture = getNextFixture()
+    bs58.encode(fixture.source)
+  }, { onStart: resetFixtureIndex, onCycle: resetFixtureIndex })
+  .add('decode', function () {
+    const fixture = getNextFixture()
+    bs58.decode(fixture.string)
+  }, { onStart: resetFixtureIndex, onCycle: resetFixtureIndex })
+  .run()
