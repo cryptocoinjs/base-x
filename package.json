@@ -39,7 +39,8 @@
     "url": "https://github.com/cryptocoinjs/base-x.git"
   },
   "scripts": {
-    "build": "tsc -p ./tsconfig.json && tsc -p ./tsconfig.cjs.json; standard --fix --ignore test",
+    "build": "npm run clean && tsc -p ./tsconfig.json && tsc -p ./tsconfig.cjs.json; standard --fix --ignore test",
+    "clean": "rimraf src",
     "postbuild": "find src/cjs -type f -name \"*.js\" -exec bash -c 'mv \"$0\" \"${0%.js}.cjs\"' {} \\;",
     "gitdiff": "npm run build && git diff --exit-code",
     "prepublish": "npm run gitdiff",
@@ -49,6 +50,7 @@
   },
   "devDependencies": {
     "@types/node": "12.0.10",
+    "rimraf": "^3.0.2",
     "standard": "^17.1.0",
     "tape": "^5.3.0",
     "typescript": "^5.4.5"
