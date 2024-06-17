@@ -2,7 +2,7 @@ import basex from '../src/esm/index.js'
 import tape from 'tape'
 import fixtures from './fixtures.json' assert { type: 'json' }
 
-const { alphabets, invalid, valid } = fixtures;
+const { alphabets, invalid, valid } = fixtures
 
 const uint8ArrayToHexString = (uint8) => {
   return Array.from(uint8).reduce((acc, curr) => `${acc}${curr.toString(16).padStart(2, '0')}`, '')
