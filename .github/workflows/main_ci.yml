@@ -10,30 +10,30 @@ jobs:
   unit:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v4
         with:
-          node-version: 12
+          node-version: 18
           registry-url: https://registry.npmjs.org/
-      - run: npm i
+      - run: npm ci
       - run: npm run unit
   format:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v4
         with:
-          node-version: 12
+          node-version: 18
           registry-url: https://registry.npmjs.org/
-      - run: npm i
+      - run: npm ci
       - run: npm run standard
   gitdiff:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v4
         with:
-          node-version: 12
+          node-version: 18
           registry-url: https://registry.npmjs.org/
-      - run: npm i
+      - run: npm ci
       - run: npm run gitdiff
