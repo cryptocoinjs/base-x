@@ -660,6 +660,12 @@
       "alphabet": "0123456789fabcdef",
       "description": "poorly formed alphabet",
       "exception": "^TypeError: f is ambiguous$"
+    },
+    {
+      "alphabet": "base58",
+      "description": "character whose code exceeds the highest index of base map (>=256)",
+      "exception": "^Error: Non-base58 character$",
+      "string": "\u1000"
     }
   ]
 }
