@@ -98,8 +98,14 @@ function base (ALPHABET: string): base.BaseConverter {
 
     // Process the characters.
     while (psz < source.length) {
+      // Find code of next character
+      const charCode = source.charCodeAt(psz)
+
+      // Base map can not be indexed using char code
+      if (charCode > 255) return
+
       // Decode character
-      let carry = BASE_MAP[source.charCodeAt(psz)]
+      let carry = BASE_MAP[charCode]
 
       // Invalid character
       if (carry === 255) return
