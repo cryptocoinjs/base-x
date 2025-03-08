@@ -5,10 +5,7 @@
 // file LICENSE or http://www.opensource.org/licenses/mit-license.php.
 function base (ALPHABET) {
   if (ALPHABET.length >= 255) { throw new TypeError('Alphabet too long') }
-  const BASE_MAP = new Uint8Array(256)
-  for (let j = 0; j < BASE_MAP.length; j++) {
-    BASE_MAP[j] = 255
-  }
+  const BASE_MAP = new Uint8Array(256).fill(255)
   for (let i = 0; i < ALPHABET.length; i++) {
     const x = ALPHABET.charAt(i)
     const xc = x.charCodeAt(0)
